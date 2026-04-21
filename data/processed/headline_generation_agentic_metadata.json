@@ -1,0 +1,18 @@
+{
+  "input": "data/processed/headline_generation_eval_seed_100.csv",
+  "output_candidates": "data/processed/headline_generation_agentic_candidates_100.csv",
+  "output_selected": "data/processed/headline_generation_agentic_selected_100.csv",
+  "report": "data/processed/headline_generation_agentic_profile.md",
+  "model": "gpt-4o-mini",
+  "base_url": "https://api.openai.com/v1",
+  "num_candidates": 3,
+  "dry_run": false,
+  "device": "mps",
+  "generated_seed_count": 100,
+  "generation_error_count": 0,
+  "candidate_rows": 298,
+  "selected_rows": 100,
+  "clickbait_weight": 1.0,
+  "quality_weight": 1.0,
+  "pairwise_weight": 0.25
+}

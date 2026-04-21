@@ -96,13 +96,24 @@ def parse_headlines(text: str, expected: int) -> list[str]:
     candidates: list[str] = []
     try:
         obj = json.loads(text)
+        if isinstance(obj, str):
+            obj = json.loads(obj)
         if isinstance(obj, dict) and isinstance(obj.get("headlines"), list):
             candidates = [clean_headline(item) for item in obj["headlines"]]
         elif isinstance(obj, list):
             candidates = [clean_headline(item) for item in obj]
     except json.JSONDecodeError:
-        lines = [re.sub(r"^\d+[\).\s-]*", "", line).strip() for line in text.splitlines()]
-        candidates = [clean_headline(line) for line in lines if line.strip()]
+        match = re.search(r"\{.*\"headlines\".*\}", text)
+        if match:
+            try:
+                obj = json.loads(match.group(0))
+                if isinstance(obj, dict) and isinstance(obj.get("headlines"), list):
+                    candidates = [clean_headline(item) for item in obj["headlines"]]
+            except json.JSONDecodeError:
+                candidates = []
+        if not candidates:
+            lines = [re.sub(r"^\d+[\).\s-]*", "", line).strip() for line in text.splitlines()]
+            candidates = [clean_headline(line) for line in lines if line.strip()]
 
     deduped = []
     seen = set()
