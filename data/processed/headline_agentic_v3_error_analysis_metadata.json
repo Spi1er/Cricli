@@ -1,0 +1,16 @@
+{
+  "judge": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_quality_llm_judge_agentic_v3_specificity_scores.csv",
+  "local": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_agentic_v3_specificity_vs_baselines_eval.csv",
+  "output": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_agentic_v3_error_analysis.csv",
+  "report": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_agentic_v3_error_analysis.md",
+  "seed_count": 100,
+  "case_counts": {
+    "tie_or_mixed": 42,
+    "zero_shot_beats_agentic": 22,
+    "local_reward_overestimates_agentic": 17,
+    "agentic_beats_zero_shot": 15,
+    "local_reward_underestimates_agentic": 4
+  },
+  "mean_agentic_vs_zero_overall_delta": -0.22,
+  "mean_agentic_vs_zero_local_delta": 0.020818311999999946
+}

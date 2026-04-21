@@ -42,7 +42,7 @@ DEFAULT_PAIRWISE_MODEL = PROJECT_ROOT / "models" / "headline_pairwise_reward_dis
 SCORE_FIELDS = ["faithfulness", "clarity", "specificity", "attractiveness", "non_clickbait", "overall"]
 
 
-INSTRUCTIONS = """You are a careful news headline editor.
+BALANCED_INSTRUCTIONS = """You are a careful news headline editor.
 
 Generate multiple candidate headlines for the provided news summary.
 
@@ -55,6 +55,28 @@ Rules:
 - Do not add facts that are not supported by the summary.
 - Return valid JSON only, with this schema:
   {"headlines": ["candidate 1", "candidate 2", "candidate 3"]}"""
+
+
+SPECIFICITY_INSTRUCTIONS = """You are a careful news headline editor optimizing for faithful, specific, non-clickbait headlines.
+
+Generate multiple candidate headlines for the provided news summary.
+
+Rules:
+- Each headline must be 7 to 15 words.
+- Preserve the main factual claim and do not add unsupported facts.
+- Prefer concrete entities, places, events, numbers, dates, institutions, or actions that appear in the summary.
+- Avoid generic headlines that could apply to many stories.
+- Avoid vague teaser wording, listicle framing, promotional phrasing, and exaggerated adjectives.
+- Do not write question headlines.
+- If the summary lacks a detail, do not invent it.
+- Generate candidates with different editorial emphases:
+  1. most faithful
+  2. most specific
+  3. clearest general-news style
+  4. most engaging without clickbait
+  5. best balanced editor headline
+- Return valid JSON only, with this schema:
+  {"headlines": ["candidate 1", "candidate 2", "candidate 3", "candidate 4", "candidate 5"]}"""
 
 
 def clean_text(value: object) -> str:
@@ -125,11 +147,18 @@ def parse_headlines(text: str, expected: int) -> list[str]:
     return deduped[:expected]
 
 
+def candidate_instructions(prompt_style: str) -> str:
+    if prompt_style == "specificity":
+        return SPECIFICITY_INSTRUCTIONS
+    return BALANCED_INSTRUCTIONS
+
+
 def call_openai_candidates(
     *,
     api_key: str,
     base_url: str,
     model: str,
+    instructions: str,
     summary: str,
     category: str,
     num_candidates: int,
@@ -147,7 +176,7 @@ def call_openai_candidates(
     )
     payload: dict[str, object] = {
         "model": model,
-        "instructions": INSTRUCTIONS,
+        "instructions": instructions,
         "input": user_input,
         "max_output_tokens": max_output_tokens,
         "store": False,
@@ -321,6 +350,29 @@ def batched_pairwise_scores(
     return np.asarray(scores, dtype=np.float32)
 
 
+def final_scores(valid: pd.DataFrame, args: argparse.Namespace) -> pd.Series:
+    if args.reward_preset == "faithfulness_specificity":
+        quality_component = (
+            0.35 * valid["candidate_pred_faithfulness"]
+            + 0.15 * valid["candidate_pred_clarity"]
+            + 0.25 * valid["candidate_pred_specificity"]
+            + 0.10 * valid["candidate_pred_attractiveness"]
+            + 0.10 * valid["candidate_pred_non_clickbait"]
+            + 0.05 * valid["candidate_pred_overall"]
+        )
+        return (
+            args.quality_weight * quality_component
+            + args.pairwise_weight * valid["candidate_pairwise_reward"]
+            - args.clickbait_weight * valid["candidate_clickbait_penalty"]
+        )
+
+    return (
+        args.quality_weight * valid["candidate_quality_reward"]
+        + args.pairwise_weight * valid["candidate_pairwise_reward"]
+        - args.clickbait_weight * valid["candidate_clickbait_penalty"]
+    )
+
+
 def load_existing_candidates(path: Path) -> pd.DataFrame:
     if path.exists():
         return pd.read_csv(path)
@@ -372,6 +424,7 @@ def generate_candidates(args: argparse.Namespace, seed_df: pd.DataFrame) -> pd.D
                     api_key=api_key,
                     base_url=args.base_url,
                     model=args.model,
+                    instructions=candidate_instructions(args.prompt_style),
                     summary=clean_text(row["summary"]),
                     category=clean_text(row["category"]),
                     num_candidates=args.num_candidates,
@@ -454,11 +507,7 @@ def score_candidates(args: argparse.Namespace, candidates: pd.DataFrame, device:
         valid[f"candidate_pred_{field}"] = quality_dims[:, i]
     valid["candidate_quality_reward"] = quality_reward
     valid["candidate_pairwise_reward"] = pairwise_reward
-    valid["agentic_final_score"] = (
-        args.quality_weight * valid["candidate_quality_reward"]
-        + args.pairwise_weight * valid["candidate_pairwise_reward"]
-        - args.clickbait_weight * valid["candidate_clickbait_penalty"]
-    )
+    valid["agentic_final_score"] = final_scores(valid, args)
 
     scored = candidates.copy()
     for col in valid.columns:
@@ -519,6 +568,8 @@ def write_report(args: argparse.Namespace, candidates: pd.DataFrame, selected: p
         f"- Clickbait weight: {args.clickbait_weight}",
         f"- Quality weight: {args.quality_weight}",
         f"- Pairwise weight: {args.pairwise_weight}",
+        f"- Reward preset: `{args.reward_preset}`",
+        f"- Prompt style: `{args.prompt_style}`",
         f"- Dry run: {args.dry_run}",
         "",
         "## Summary",
@@ -593,6 +644,8 @@ def main() -> None:
     parser.add_argument("--clickbait-weight", type=float, default=1.0)
     parser.add_argument("--quality-weight", type=float, default=1.0)
     parser.add_argument("--pairwise-weight", type=float, default=0.25)
+    parser.add_argument("--reward-preset", choices=["balanced", "faithfulness_specificity"], default="balanced")
+    parser.add_argument("--prompt-style", choices=["balanced", "specificity"], default="balanced")
     parser.add_argument("--device", choices=["auto", "cpu", "cuda", "mps"], default="auto")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--overwrite-existing", action="store_true")
@@ -630,6 +683,8 @@ def main() -> None:
         "clickbait_weight": args.clickbait_weight,
         "quality_weight": args.quality_weight,
         "pairwise_weight": args.pairwise_weight,
+        "reward_preset": args.reward_preset,
+        "prompt_style": args.prompt_style,
     }
     args.metadata.write_text(json.dumps(metadata, indent=2), encoding="utf-8")
     print("Wrote", args.output_candidates)

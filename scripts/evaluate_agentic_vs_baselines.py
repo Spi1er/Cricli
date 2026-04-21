@@ -208,6 +208,29 @@ def batched_pairwise_scores(
     return np.asarray(scores, dtype=np.float32)
 
 
+def final_scores(scored: pd.DataFrame, args: argparse.Namespace) -> pd.Series:
+    if args.reward_preset == "faithfulness_specificity":
+        quality_component = (
+            0.35 * scored["pred_faithfulness"]
+            + 0.15 * scored["pred_clarity"]
+            + 0.25 * scored["pred_specificity"]
+            + 0.10 * scored["pred_attractiveness"]
+            + 0.10 * scored["pred_non_clickbait"]
+            + 0.05 * scored["pred_overall"]
+        )
+        return (
+            args.quality_weight * quality_component
+            + args.pairwise_weight * scored["pairwise_reward"]
+            - args.clickbait_weight * scored["clickbait_penalty"]
+        )
+
+    return (
+        args.quality_weight * scored["quality_reward"]
+        + args.pairwise_weight * scored["pairwise_reward"]
+        - args.clickbait_weight * scored["clickbait_penalty"]
+    )
+
+
 def build_long_dataframe(baselines: pd.DataFrame, agentic: pd.DataFrame) -> pd.DataFrame:
     agentic_cols = ["seed_id", "agentic_selected_title", "agentic_selected_candidate_id", "agentic_selected_candidate_rank"]
     merged = baselines.merge(agentic[agentic_cols], on="seed_id", how="left")
@@ -260,11 +283,7 @@ def score_long_dataframe(args: argparse.Namespace, df: pd.DataFrame, device: tor
     scored["pairwise_reward"] = batched_pairwise_scores(
         texts, args.pairwise_model, args.batch_size, args.max_length, device
     )
-    scored["final_score"] = (
-        args.quality_weight * scored["quality_reward"]
-        + args.pairwise_weight * scored["pairwise_reward"]
-        - args.clickbait_weight * scored["clickbait_penalty"]
-    )
+    scored["final_score"] = final_scores(scored, args)
     return scored
 
 
@@ -362,6 +381,7 @@ def write_report(args: argparse.Namespace, scored: pd.DataFrame, summary: pd.Dat
         f"- Clickbait weight: {args.clickbait_weight}",
         f"- Quality weight: {args.quality_weight}",
         f"- Pairwise weight: {args.pairwise_weight}",
+        f"- Reward preset: `{args.reward_preset}`",
         f"- Output: `{args.output}`",
         "",
         "## Variant Summary",
@@ -404,6 +424,7 @@ def main() -> None:
     parser.add_argument("--clickbait-weight", type=float, default=1.0)
     parser.add_argument("--quality-weight", type=float, default=1.0)
     parser.add_argument("--pairwise-weight", type=float, default=0.25)
+    parser.add_argument("--reward-preset", choices=["balanced", "faithfulness_specificity"], default="balanced")
     parser.add_argument("--device", choices=["auto", "cpu", "cuda", "mps"], default="auto")
     args = parser.parse_args()
 
@@ -433,6 +454,7 @@ def main() -> None:
         "clickbait_weight": args.clickbait_weight,
         "quality_weight": args.quality_weight,
         "pairwise_weight": args.pairwise_weight,
+        "reward_preset": args.reward_preset,
     }
     args.metadata.write_text(json.dumps(metadata, indent=2), encoding="utf-8")
     print("Wrote", args.output)
