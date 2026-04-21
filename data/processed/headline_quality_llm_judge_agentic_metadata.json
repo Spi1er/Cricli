@@ -1,0 +1,20 @@
+{
+  "input": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_agentic_vs_baselines_eval.csv",
+  "output": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_quality_llm_judge_agentic_scores.csv",
+  "report": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_quality_llm_judge_agentic_profile.md",
+  "pairwise_output": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_quality_agentic_pairwise_preferences.jsonl",
+  "reward_output": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_quality_agentic_reward_model_examples.jsonl",
+  "model": "gpt-4o-mini",
+  "completed_seed_count": 100,
+  "scored_rows": 400,
+  "newly_judged_seed_count": 97,
+  "errors": 0,
+  "pairwise_examples": 336,
+  "reward_examples": 400,
+  "variants": [
+    "original",
+    "zero_shot",
+    "optimized",
+    "agentic_selected"
+  ]
+}
