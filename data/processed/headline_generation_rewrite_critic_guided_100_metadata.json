@@ -1,0 +1,10 @@
+{
+  "input": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/headline_generation_zero_shot_scored_100.csv",
+  "output": "projects/data/processed/headline_generation_rewrite_critic_guided_100.csv",
+  "model": "gpt-4o-mini",
+  "threshold": 0.5,
+  "target_rows": 9,
+  "completed_target_rows": 9,
+  "newly_rewritten_rows": 6,
+  "errors": 0
+}

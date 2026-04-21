@@ -1,0 +1,14 @@
+{
+  "input": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/headline_generation_eval_seed_100.csv",
+  "output": "projects/data/processed/headline_generation_zero_shot_100_dryrun.csv",
+  "model": "gpt-5",
+  "base_url": "https://api.openai.com/v1",
+  "temperature": 0.2,
+  "max_output_tokens": 48,
+  "reasoning_effort": "low",
+  "total_rows": 100,
+  "completed_rows": 0,
+  "newly_generated_rows": 0,
+  "errors": 0,
+  "dry_run": true
+}

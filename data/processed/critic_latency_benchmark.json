@@ -1,0 +1,38 @@
+{
+  "device": "cpu",
+  "batch_size": 32,
+  "max_length": 256,
+  "warmup_batches": 1,
+  "benchmarks": [
+    {
+      "name": "clickbait_penalty_distilbert",
+      "measured_examples": 268,
+      "measured_batches": 9,
+      "total_seconds": 0.7437052081804723,
+      "examples_per_second": 360.3578367505064,
+      "ms_per_example": 2.775019433509225,
+      "mean_batch_seconds": 0.08263391202005248,
+      "p95_batch_seconds": 0.10407942463643849
+    },
+    {
+      "name": "headline_quality_reward_distilbert",
+      "measured_examples": 268,
+      "measured_batches": 9,
+      "total_seconds": 3.989676623023115,
+      "examples_per_second": 67.1733639898181,
+      "ms_per_example": 14.886853070981772,
+      "mean_batch_seconds": 0.4432974025581239,
+      "p95_batch_seconds": 0.5190596080152318
+    },
+    {
+      "name": "headline_pairwise_reward_distilbert",
+      "measured_examples": 135,
+      "measured_batches": 5,
+      "total_seconds": 4.07429658388719,
+      "examples_per_second": 33.13455395807237,
+      "ms_per_example": 30.179974695460665,
+      "mean_batch_seconds": 0.814859316777438,
+      "p95_batch_seconds": 1.0086396171711385
+    }
+  ]
+}

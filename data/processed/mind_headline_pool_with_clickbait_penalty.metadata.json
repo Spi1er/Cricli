@@ -1,0 +1,12 @@
+{
+  "input": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/mind_headline_pool_sample.csv",
+  "model": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/models/clickbait_penalty_distilbert",
+  "output": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/mind_headline_pool_with_clickbait_penalty.csv",
+  "report": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/clickbait_penalty_profile.md",
+  "rows": 10000,
+  "threshold": 0.5,
+  "mean_clickbait_penalty": 0.23283427953720093,
+  "median_clickbait_penalty": 0.00017441199452150613,
+  "predicted_clickbait_rate": 0.2315,
+  "device": "cpu"
+}

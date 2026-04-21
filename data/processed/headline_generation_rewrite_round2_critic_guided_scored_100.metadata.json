@@ -1,0 +1,16 @@
+{
+  "input": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/headline_generation_rewrite_round2_critic_guided_100.csv",
+  "model": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/models/clickbait_penalty_distilbert",
+  "output": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/headline_generation_rewrite_round2_critic_guided_scored_100.csv",
+  "report": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/headline_generation_rewrite_round2_critic_guided_profile.md",
+  "total_rows": 100,
+  "round2_target_rows": 7,
+  "threshold": 0.5,
+  "round2_target_round1_mean_penalty": 0.9987973200000001,
+  "round2_target_round2_mean_penalty": 0.8565090894699097,
+  "round2_target_mean_delta": -0.1422882578170102,
+  "round2_target_below_threshold_rate": 0.14285714285714285,
+  "round2_final_mean_penalty": 0.06555383672750033,
+  "round2_final_clickbait_rate": 0.06,
+  "device": "cpu"
+}

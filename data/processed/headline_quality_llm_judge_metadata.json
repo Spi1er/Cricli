@@ -1,0 +1,14 @@
+{
+  "input": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/headline_generation_rewrite_round2_critic_guided_scored_100.csv",
+  "output": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/headline_quality_llm_judge_scores.csv",
+  "report": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/headline_quality_llm_judge_profile.md",
+  "pairwise_output": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/headline_quality_pairwise_preferences.jsonl",
+  "reward_output": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/headline_quality_reward_model_examples.jsonl",
+  "model": "gpt-4o-mini",
+  "completed_seed_count": 100,
+  "scored_rows": 300,
+  "newly_judged_seed_count": 95,
+  "errors": 0,
+  "pairwise_examples": 167,
+  "reward_examples": 300
+}

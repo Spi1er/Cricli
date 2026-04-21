@@ -1,0 +1,15 @@
+{
+  "input": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/headline_generation_zero_shot_100.csv",
+  "model": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/models/clickbait_penalty_distilbert",
+  "output": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/headline_generation_zero_shot_scored_100.csv",
+  "report": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/headline_generation_zero_shot_profile.md",
+  "rows": 100,
+  "threshold": 0.5,
+  "original_mean_penalty": 0.26883121726429005,
+  "zero_shot_mean_penalty": 0.08787191659212112,
+  "mean_delta": -0.18095931957241468,
+  "original_clickbait_rate": 0.27,
+  "zero_shot_clickbait_rate": 0.09,
+  "reduced_rate": 0.71,
+  "device": "cpu"
+}

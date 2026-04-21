@@ -1,0 +1,32 @@
+# OS/editor noise
+.DS_Store
+**/.DS_Store
+__pycache__/
+*.py[cod]
+
+# Local environments and secrets
+.venv/
+.venv-mps/
+.env
+*.env
+*.key
+
+# Raw data and large generated artifacts
+data/raw/
+
+# Large model weights/checkpoints
+models/**/model.safetensors
+models/**/pytorch_model.bin
+models/**/training_args.bin
+models/**/checkpoints/
+models/**/checkpoint-*/
+
+# Optional large/derived prediction files; keep reports/metrics instead
+models/**/test_predictions.csv
+models/**/test_pair_predictions.csv
+
+# Python/package caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
