@@ -1,0 +1,20 @@
+{
+  "input": "data/processed/headline_agentic_v2_vs_baselines_eval.csv",
+  "output": "data/processed/headline_quality_llm_judge_agentic_v2_scores.csv",
+  "report": "data/processed/headline_quality_llm_judge_agentic_v2_profile.md",
+  "pairwise_output": "data/processed/headline_quality_agentic_v2_pairwise_preferences.jsonl",
+  "reward_output": "data/processed/headline_quality_agentic_v2_reward_model_examples.jsonl",
+  "model": "gpt-4o-mini",
+  "completed_seed_count": 100,
+  "scored_rows": 400,
+  "newly_judged_seed_count": 100,
+  "errors": 0,
+  "pairwise_examples": 334,
+  "reward_examples": 400,
+  "variants": [
+    "original",
+    "zero_shot",
+    "optimized",
+    "agentic_selected"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "model_name_or_path": "google/flan-t5-small",
+  "output_dir": "models/headline_generator_flan_t5_small_specificity_sft",
+  "train_csv": "data/processed/headline_sft_specificity_train.csv",
+  "val_csv": "data/processed/headline_sft_specificity_val.csv",
+  "test_csv": "data/processed/headline_sft_specificity_test.csv",
+  "predictions": "data/processed/headline_generator_flan_t5_small_specificity_sft_predictions.csv",
+  "device": "mps",
+  "smoke_test": false,
+  "rows": {
+    "train": 4409,
+    "val": 512,
+    "test": 548,
+    "predictions": 500
+  },
+  "training": {
+    "epochs": 3.0,
+    "learning_rate": 5e-05,
+    "train_batch_size": 8,
+    "eval_batch_size": 8,
+    "gradient_accumulation_steps": 2,
+    "max_source_length": 256,
+    "max_target_length": 32,
+    "num_beams": 4
+  },
+  "train_metrics": {
+    "train_runtime": 469.2369,
+    "train_samples_per_second": 28.188,
+    "train_steps_per_second": 1.765,
+    "total_flos": 851321509963776.0,
+    "train_loss": 6.468279502242083,
+    "epoch": 3.0
+  },
+  "val_metrics": {
+    "eval_loss": 2.8397269248962402,
+    "eval_runtime": 5.4636,
+    "eval_samples_per_second": 93.71,
+    "eval_steps_per_second": 11.714,
+    "epoch": 3.0
+  },
+  "test_prediction_exact_match": 0.004
+}

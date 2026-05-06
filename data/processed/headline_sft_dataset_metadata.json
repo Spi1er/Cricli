@@ -1,0 +1,82 @@
+{
+  "input": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/mind_headline_pool_with_clickbait_penalty.csv",
+  "source_field": "summary",
+  "output_files": {
+    "generic": {
+      "train": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_generic_train.csv",
+      "val": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_generic_val.csv",
+      "test": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_generic_test.csv"
+    },
+    "specificity": {
+      "train": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_specificity_train.csv",
+      "val": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_specificity_val.csv",
+      "test": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_specificity_test.csv"
+    }
+  },
+  "filters": {
+    "min_source_words": 20,
+    "min_title_words": 5,
+    "max_title_words": 18,
+    "specificity_max_clickbait_penalty": 0.2,
+    "require_specific_signal": false
+  },
+  "random_state": 5293,
+  "input_rows": 10000,
+  "base_eligible_rows": 6793,
+  "variants": {
+    "generic": {
+      "rows": 6793,
+      "split_counts": {
+        "train": 5448,
+        "val": 658,
+        "test": 687
+      },
+      "mean_source_word_count": 49.82849992639482,
+      "mean_target_word_count": 10.797585750036802,
+      "specific_signal_rate": 0.8869424407478287,
+      "category_counts_top12": {
+        "news": 2498,
+        "sports": 1924,
+        "finance": 382,
+        "travel": 333,
+        "weather": 300,
+        "foodanddrink": 280,
+        "lifestyle": 275,
+        "health": 221,
+        "video": 181,
+        "autos": 151,
+        "music": 81,
+        "tv": 68
+      },
+      "mean_clickbait_penalty": 0.18757980388987133,
+      "clickbait_rate": 0.18651553069336083
+    },
+    "specificity": {
+      "rows": 5469,
+      "split_counts": {
+        "train": 4409,
+        "val": 512,
+        "test": 548
+      },
+      "mean_source_word_count": 51.43737429146096,
+      "mean_target_word_count": 10.674346315597,
+      "specific_signal_rate": 0.8833424757725361,
+      "category_counts_top12": {
+        "news": 2269,
+        "sports": 1632,
+        "finance": 330,
+        "weather": 276,
+        "travel": 250,
+        "video": 151,
+        "autos": 131,
+        "health": 122,
+        "lifestyle": 115,
+        "foodanddrink": 67,
+        "tv": 43,
+        "music": 36
+      },
+      "mean_clickbait_penalty": 0.0022117142263477782,
+      "clickbait_rate": 0.0
+    }
+  }
+}

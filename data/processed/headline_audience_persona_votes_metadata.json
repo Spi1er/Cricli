@@ -1,0 +1,14 @@
+{
+  "input": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_audience_persona_votes.csv",
+  "report": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_audience_persona_votes_profile.md",
+  "rows": 1676,
+  "clean_rows": 1676,
+  "completed_seed_count": 90,
+  "persona_count": 4,
+  "personas": [
+    "busy_news_reader",
+    "editorial_reviewer",
+    "growth_reader",
+    "trust_sensitive_reader"
+  ]
+}

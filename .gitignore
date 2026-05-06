@@ -15,6 +15,7 @@ __pycache__/
 data/raw/
 
 # Large model weights/checkpoints
+models/
 models/**/model.safetensors
 models/**/pytorch_model.bin
 models/**/training_args.bin
@@ -29,4 +30,3 @@ models/**/test_pair_predictions.csv
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
-

@@ -1,0 +1,18 @@
+{
+  "input": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_generation_eval_seed_100.csv",
+  "output_candidates": "data/processed/headline_generation_agentic_candidates_dryrun.csv",
+  "output_selected": "data/processed/headline_generation_agentic_selected_dryrun.csv",
+  "report": "data/processed/headline_generation_agentic_profile_dryrun.md",
+  "model": "gpt-4o-mini",
+  "base_url": "https://api.openai.com/v1",
+  "num_candidates": 2,
+  "dry_run": true,
+  "device": "mps",
+  "generated_seed_count": 3,
+  "generation_error_count": 0,
+  "candidate_rows": 6,
+  "selected_rows": 3,
+  "clickbait_weight": 1.0,
+  "quality_weight": 1.0,
+  "pairwise_weight": 0.25
+}

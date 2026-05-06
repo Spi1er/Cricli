@@ -1,0 +1,44 @@
+{
+  "judge": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_quality_llm_judge_sft_scores.csv",
+  "local": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_generators_eval.csv",
+  "output": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_judge_error_analysis.csv",
+  "report": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_judge_error_analysis.md",
+  "rows": 100,
+  "failure_groups": {
+    "sft_tie": 43,
+    "original_best_sft_tie": 40,
+    "original_best_specificity_above_generic": 6,
+    "specificity_best": 6,
+    "generic_best": 4,
+    "original_best_generic_above_specificity": 1
+  },
+  "mean_deltas": [
+    {
+      "comparison": "specificity_minus_generic",
+      "mean_faithfulness_delta": 0.05,
+      "mean_clarity_delta": -0.02,
+      "mean_specificity_delta": 0.24,
+      "mean_attractiveness_delta": -0.01,
+      "mean_non_clickbait_delta": 0.04,
+      "mean_overall_delta": 0.08
+    },
+    {
+      "comparison": "specificity_minus_original",
+      "mean_faithfulness_delta": -0.24,
+      "mean_clarity_delta": -0.31,
+      "mean_specificity_delta": -0.01,
+      "mean_attractiveness_delta": -0.79,
+      "mean_non_clickbait_delta": -0.1,
+      "mean_overall_delta": -0.37
+    },
+    {
+      "comparison": "generic_minus_original",
+      "mean_faithfulness_delta": -0.29,
+      "mean_clarity_delta": -0.29,
+      "mean_specificity_delta": -0.25,
+      "mean_attractiveness_delta": -0.78,
+      "mean_non_clickbait_delta": -0.14,
+      "mean_overall_delta": -0.45
+    }
+  ]
+}

@@ -2,7 +2,20 @@
 
 Project: Audience-Aware Headline Optimization with Local Critics and Reward-Model Iteration
 
-Current status: the project now implements a small but complete post-training / RLHF-style headline optimization workflow: API generation, local critic scoring, LLM-judge labeling, reward model distillation, best-of-N reranking, reward-model update, prompt ablation, and error analysis.
+Current status: the project is re-centered around the original proposal direction: audience-aware headline optimization with local critics, LLM-as-judge labels, reward-model distillation, persona/audience evaluation, and objective-specific headline selection.
+
+The project should not be framed as a full autonomous agent or online RL system. It is best described as a proposal-aligned, RLHF-inspired workflow:
+
+```text
+candidate headline generation
+-> multi-dimensional evaluation
+-> audience/persona preference estimation
+-> small critic / reward model distillation
+-> objective-specific selection
+-> reward and evaluator misalignment analysis
+```
+
+The FLAN-T5 SFT generator experiments are retained as auxiliary candidate-source experiments. They are not the main project objective.
 
 ## 1. Project Positioning
 

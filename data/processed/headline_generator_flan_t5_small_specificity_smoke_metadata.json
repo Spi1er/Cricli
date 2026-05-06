@@ -1,0 +1,42 @@
+{
+  "model_name_or_path": "google/flan-t5-small",
+  "output_dir": "models/headline_generator_flan_t5_small_specificity_smoke",
+  "train_csv": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_specificity_train.csv",
+  "val_csv": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_specificity_val.csv",
+  "test_csv": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_specificity_test.csv",
+  "predictions": "data/processed/headline_generator_flan_t5_small_specificity_smoke_predictions.csv",
+  "device": "mps",
+  "smoke_test": true,
+  "rows": {
+    "train": 64,
+    "val": 32,
+    "test": 32,
+    "predictions": 16
+  },
+  "training": {
+    "epochs": 0.1,
+    "learning_rate": 5e-05,
+    "train_batch_size": 4,
+    "eval_batch_size": 4,
+    "gradient_accumulation_steps": 2,
+    "max_source_length": 256,
+    "max_target_length": 32,
+    "num_beams": 4
+  },
+  "train_metrics": {
+    "train_runtime": 5.3211,
+    "train_samples_per_second": 1.203,
+    "train_steps_per_second": 0.188,
+    "total_flos": 483605766144.0,
+    "train_loss": 6.606453895568848,
+    "epoch": 0.125
+  },
+  "val_metrics": {
+    "eval_loss": 3.5726752281188965,
+    "eval_runtime": 0.495,
+    "eval_samples_per_second": 64.649,
+    "eval_steps_per_second": 16.162,
+    "epoch": 0.125
+  },
+  "test_prediction_exact_match": 0.0
+}

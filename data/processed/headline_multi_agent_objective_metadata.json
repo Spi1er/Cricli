@@ -1,0 +1,78 @@
+{
+  "agentic_local": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_agentic_v3_specificity_vs_baselines_eval.csv",
+  "sft_local": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_generators_eval.csv",
+  "agentic_candidates": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_generation_agentic_candidates_v3_specificity_100.csv",
+  "agentic_judge": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_quality_llm_judge_agentic_v3_specificity_scores.csv",
+  "sft_judge": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_quality_llm_judge_sft_scores.csv",
+  "matrix_output": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_multi_agent_candidate_matrix.csv",
+  "selection_output": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_multi_agent_objective_selection.csv",
+  "report": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_multi_agent_objective_profile.md",
+  "rows": 1200,
+  "seed_count": 100,
+  "selection_rows": 400,
+  "objectives": {
+    "trust_safety": {
+      "description": "Prefer faithful, clear, non-clickbait titles for trust-sensitive surfaces.",
+      "weights": {
+        "pred_faithfulness": 0.4,
+        "pred_clarity": 0.2,
+        "pred_specificity": 0.1,
+        "pred_attractiveness": 0.0,
+        "pred_non_clickbait": 0.3,
+        "pairwise_reward": 0.1,
+        "clickbait_penalty": -1.0,
+        "length_style_score": 0.2
+      }
+    },
+    "growth": {
+      "description": "Prefer attractive, clear, specific titles while keeping clickbait risk bounded.",
+      "weights": {
+        "pred_faithfulness": 0.15,
+        "pred_clarity": 0.2,
+        "pred_specificity": 0.2,
+        "pred_attractiveness": 0.35,
+        "pred_non_clickbait": 0.1,
+        "pairwise_reward": 0.2,
+        "clickbait_penalty": -0.35,
+        "length_style_score": 0.15
+      }
+    },
+    "editorial": {
+      "description": "Prefer balanced titles that look like compact human-edited news headlines.",
+      "weights": {
+        "pred_faithfulness": 0.25,
+        "pred_clarity": 0.2,
+        "pred_specificity": 0.2,
+        "pred_attractiveness": 0.2,
+        "pred_non_clickbait": 0.15,
+        "pairwise_reward": 0.15,
+        "clickbait_penalty": -0.5,
+        "length_style_score": 0.35
+      }
+    },
+    "specificity": {
+      "description": "Prefer concrete, supported details without sacrificing faithfulness.",
+      "weights": {
+        "pred_faithfulness": 0.3,
+        "pred_clarity": 0.1,
+        "pred_specificity": 0.4,
+        "pred_attractiveness": 0.05,
+        "pred_non_clickbait": 0.15,
+        "pairwise_reward": 0.1,
+        "clickbait_penalty": -0.45,
+        "length_style_score": 0.1,
+        "summary_support_rate": 0.2
+      }
+    }
+  },
+  "candidate_sources": {
+    "agentic_generator_v3_candidate": 500,
+    "human_editor": 100,
+    "api_zero_shot_generator": 100,
+    "critic_guided_rewriter_round1": 100,
+    "critic_guided_rewriter_round2": 100,
+    "agentic_selector_v3": 100,
+    "generic_sft_generator": 100,
+    "specificity_sft_generator": 100
+  }
+}
