@@ -376,11 +376,12 @@ For most group review and report writing, Level 1 is enough. For model developme
 
 1. `docs/PROJECT_STRUCTURE.md`
 2. `docs/TEAM_WORKPLAN.md`
-3. `docs/WORK_SUMMARY.md`
-4. `data/processed/headline_multi_agent_objective_profile.md`
-5. `data/processed/headline_audience_persona_votes_profile.md`
-6. `data/processed/headline_quality_llm_judge_agentic_v3_specificity_profile.md`
-7. `data/processed/headline_sft_judge_error_analysis.md`
+3. `docs/EVALUATION_REWARD_ANALYSIS.md`
+4. `docs/WORK_SUMMARY.md`
+5. `data/processed/headline_multi_agent_objective_profile.md`
+6. `data/processed/headline_audience_persona_votes_profile.md`
+7. `data/processed/headline_quality_llm_judge_agentic_v3_specificity_profile.md`
+8. `data/processed/headline_sft_judge_error_analysis.md`
 
 ## Main Scripts
 
