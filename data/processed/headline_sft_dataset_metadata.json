@@ -1,16 +1,16 @@
 {
-  "input": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/mind_headline_pool_with_clickbait_penalty.csv",
+  "input": "data/processed/mind_headline_pool_with_clickbait_penalty.csv",
   "source_field": "summary",
   "output_files": {
     "generic": {
-      "train": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_generic_train.csv",
-      "val": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_generic_val.csv",
-      "test": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_generic_test.csv"
+      "train": "data/processed/headline_sft_generic_train.csv",
+      "val": "data/processed/headline_sft_generic_val.csv",
+      "test": "data/processed/headline_sft_generic_test.csv"
     },
     "specificity": {
-      "train": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_specificity_train.csv",
-      "val": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_specificity_val.csv",
-      "test": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_specificity_test.csv"
+      "train": "data/processed/headline_sft_specificity_train.csv",
+      "val": "data/processed/headline_sft_specificity_val.csv",
+      "test": "data/processed/headline_sft_specificity_test.csv"
     }
   },
   "filters": {

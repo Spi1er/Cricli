@@ -1,7 +1,7 @@
 # SFT Judge Error Analysis
 
 - Input rows: 100
-- Output: `/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_judge_error_analysis.csv`
+- Output: `data/processed/headline_sft_judge_error_analysis.csv`
 
 ## Main Result
 

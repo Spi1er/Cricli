@@ -1,8 +1,8 @@
 {
-  "input": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/headline_generation_rewrite_round2_critic_guided_100.csv",
-  "model": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/models/clickbait_penalty_distilbert",
-  "output": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/headline_generation_rewrite_round2_critic_guided_scored_100.csv",
-  "report": "/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/headline_generation_rewrite_round2_critic_guided_profile.md",
+  "input": "data/processed/headline_generation_rewrite_round2_critic_guided_100.csv",
+  "model": "models/clickbait_penalty_distilbert",
+  "output": "data/processed/headline_generation_rewrite_round2_critic_guided_scored_100.csv",
+  "report": "data/processed/headline_generation_rewrite_round2_critic_guided_profile.md",
   "total_rows": 100,
   "round2_target_rows": 7,
   "threshold": 0.5,

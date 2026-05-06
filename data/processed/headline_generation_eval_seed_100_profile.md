@@ -1,6 +1,6 @@
 # Headline Generation Eval Seed Profile
 
-- Output: `/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/headline_generation_eval_seed_100.csv`
+- Output: `data/processed/headline_generation_eval_seed_100.csv`
 - Rows: 100
 - Mean original clickbait penalty: 0.2688
 - Median original clickbait penalty: 0.0002

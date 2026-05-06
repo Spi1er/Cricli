@@ -1,6 +1,6 @@
 {
-  "input": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_audience_persona_votes.csv",
-  "report": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_audience_persona_votes_profile.md",
+  "input": "data/processed/headline_audience_persona_votes.csv",
+  "report": "data/processed/headline_audience_persona_votes_profile.md",
   "rows": 1676,
   "clean_rows": 1676,
   "completed_seed_count": 90,

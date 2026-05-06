@@ -1,6 +1,6 @@
 # LLM Judge SFT Generator Comparison
 
-- Scores: `/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_quality_llm_judge_sft_scores.csv`
+- Scores: `data/processed/headline_quality_llm_judge_sft_scores.csv`
 - Scored rows: 300
 - Pairwise preference examples: 189
 - Pointwise reward examples: 300

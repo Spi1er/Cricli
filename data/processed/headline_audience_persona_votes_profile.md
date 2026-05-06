@@ -1,6 +1,6 @@
 # Audience Persona Voting Profile
 
-- Input: `/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_audience_persona_votes.csv`
+- Input: `data/processed/headline_audience_persona_votes.csv`
 - Completed seed count: 90
 - Persona count: 4
 - Vote rows: 1,676

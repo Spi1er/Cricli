@@ -4,11 +4,11 @@ This report compares the generic SFT model and the specificity-aware SFT model o
 
 ## Configuration
 
-- Input: `/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_generation_eval_seed_100.csv`
-- Generic model: `/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/models/headline_generator_flan_t5_small_generic_sft`
-- Specificity model: `/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/models/headline_generator_flan_t5_small_specificity_sft`
+- Input: `data/processed/headline_generation_eval_seed_100.csv`
+- Generic model: `models/headline_generator_flan_t5_small_generic_sft`
+- Specificity model: `models/headline_generator_flan_t5_small_specificity_sft`
 - Device: `mps`
-- Output: `/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_generators_eval.csv`
+- Output: `data/processed/headline_sft_generators_eval.csv`
 - Clickbait weight: 0.5
 - Quality weight: 1.0
 - Pairwise weight: 0.25

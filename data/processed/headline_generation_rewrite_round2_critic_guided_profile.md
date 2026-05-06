@@ -1,6 +1,6 @@
 # Round-2 Critic-Guided Rewrite Profile
 
-- Output: `/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/headline_generation_rewrite_round2_critic_guided_scored_100.csv`
+- Output: `data/processed/headline_generation_rewrite_round2_critic_guided_scored_100.csv`
 - Total rows: 100
 - Round-2 target rows: 7
 - Threshold: 0.50

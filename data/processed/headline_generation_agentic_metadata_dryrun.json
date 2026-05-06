@@ -1,5 +1,5 @@
 {
-  "input": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_generation_eval_seed_100.csv",
+  "input": "data/processed/headline_generation_eval_seed_100.csv",
   "output_candidates": "data/processed/headline_generation_agentic_candidates_dryrun.csv",
   "output_selected": "data/processed/headline_generation_agentic_selected_dryrun.csv",
   "report": "data/processed/headline_generation_agentic_profile_dryrun.md",

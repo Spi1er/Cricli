@@ -1,6 +1,6 @@
 # LLM Judge Agentic Comparison
 
-- Scores: `/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_quality_llm_judge_agentic_scores.csv`
+- Scores: `data/processed/headline_quality_llm_judge_agentic_scores.csv`
 - Scored rows: 400
 - Pairwise preference examples: 336
 - Pointwise reward examples: 400

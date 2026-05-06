@@ -1,8 +1,8 @@
 {
-  "judge": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_quality_llm_judge_sft_scores.csv",
-  "local": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_generators_eval.csv",
-  "output": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_judge_error_analysis.csv",
-  "report": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_judge_error_analysis.md",
+  "judge": "data/processed/headline_quality_llm_judge_sft_scores.csv",
+  "local": "data/processed/headline_sft_generators_eval.csv",
+  "output": "data/processed/headline_sft_judge_error_analysis.csv",
+  "report": "data/processed/headline_sft_judge_error_analysis.md",
   "rows": 100,
   "failure_groups": {
     "sft_tie": 43,

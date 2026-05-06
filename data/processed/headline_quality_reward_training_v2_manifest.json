@@ -1,21 +1,21 @@
 {
-  "reward_output": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_quality_reward_model_examples_v2.jsonl",
-  "pairwise_output": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_quality_pairwise_preferences_v2.jsonl",
+  "reward_output": "data/processed/headline_quality_reward_model_examples_v2.jsonl",
+  "pairwise_output": "data/processed/headline_quality_pairwise_preferences_v2.jsonl",
   "sources": {
     "old_reward": {
-      "path": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_quality_reward_model_examples.jsonl",
+      "path": "data/processed/headline_quality_reward_model_examples.jsonl",
       "rows": 300
     },
     "agentic_reward": {
-      "path": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_quality_agentic_reward_model_examples.jsonl",
+      "path": "data/processed/headline_quality_agentic_reward_model_examples.jsonl",
       "rows": 400
     },
     "old_pairwise": {
-      "path": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_quality_pairwise_preferences.jsonl",
+      "path": "data/processed/headline_quality_pairwise_preferences.jsonl",
       "rows": 167
     },
     "agentic_pairwise": {
-      "path": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_quality_agentic_pairwise_preferences.jsonl",
+      "path": "data/processed/headline_quality_agentic_pairwise_preferences.jsonl",
       "rows": 336
     }
   },

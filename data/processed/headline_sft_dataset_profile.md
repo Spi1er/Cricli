@@ -4,7 +4,7 @@ This dataset is the first business-driven generator training layer. It creates o
 
 ## Configuration
 
-- Input: `/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/mind_headline_pool_with_clickbait_penalty.csv`
+- Input: `data/processed/mind_headline_pool_with_clickbait_penalty.csv`
 - Source field: `summary`
 - Minimum source words: 20
 - Title word range: 5-18

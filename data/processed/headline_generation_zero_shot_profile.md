@@ -1,6 +1,6 @@
 # Zero-Shot Headline Clickbait Penalty Profile
 
-- Output: `/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/headline_generation_zero_shot_scored_100.csv`
+- Output: `data/processed/headline_generation_zero_shot_scored_100.csv`
 - Rows: 100
 - Threshold: 0.50
 - Original mean penalty: 0.2688

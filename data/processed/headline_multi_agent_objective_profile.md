@@ -11,8 +11,8 @@ This report reframes the project as an offline agentic RL-style selection system
 
 ## Files
 
-- Candidate matrix: `/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_multi_agent_candidate_matrix.csv`
-- Objective selections: `/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_multi_agent_objective_selection.csv`
+- Candidate matrix: `data/processed/headline_multi_agent_candidate_matrix.csv`
+- Objective selections: `data/processed/headline_multi_agent_objective_selection.csv`
 
 ## Candidate Sources
 

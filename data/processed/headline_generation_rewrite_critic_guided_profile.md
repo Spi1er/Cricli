@@ -1,6 +1,6 @@
 # Critic-Guided Rewrite Clickbait Penalty Profile
 
-- Output: `/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/headline_generation_rewrite_critic_guided_scored_100.csv`
+- Output: `data/processed/headline_generation_rewrite_critic_guided_scored_100.csv`
 - Total rows: 100
 - Rewrite target threshold: 0.50
 - Rewritten target rows: 9

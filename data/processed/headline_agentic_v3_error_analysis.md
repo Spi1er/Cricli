@@ -1,6 +1,6 @@
 # Agentic V3 Error Analysis
 
-- Analysis CSV: `/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_agentic_v3_error_analysis.csv`
+- Analysis CSV: `data/processed/headline_agentic_v3_error_analysis.csv`
 - Seeds analyzed: 100
 
 ## Case Counts

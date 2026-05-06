@@ -8,7 +8,7 @@ This report re-scores all variants with the same local critics: clickbait penalt
 - Clickbait weight: 1.0
 - Quality weight: 1.0
 - Pairwise weight: 0.25
-- Output: `/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_agentic_vs_baselines_eval.csv`
+- Output: `data/processed/headline_agentic_vs_baselines_eval.csv`
 
 ## Variant Summary
 

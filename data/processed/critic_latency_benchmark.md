@@ -2,7 +2,7 @@
 
 - Device: `cpu`
 - Batch size: 32
-- JSON: `/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/critic_latency_benchmark.json`
+- JSON: `data/processed/critic_latency_benchmark.json`
 
 | Critic | Examples | Examples/sec | ms/example | Total measured sec |
 | --- | ---: | ---: | ---: | ---: |

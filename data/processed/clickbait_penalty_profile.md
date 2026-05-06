@@ -1,8 +1,8 @@
 # MIND Headline Clickbait Penalty Profile
 
 - Input rows: 10,000
-- Model: `/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/models/clickbait_penalty_distilbert`
-- Output: `/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/mind_headline_pool_with_clickbait_penalty.csv`
+- Model: `models/clickbait_penalty_distilbert`
+- Output: `data/processed/mind_headline_pool_with_clickbait_penalty.csv`
 - Decision threshold: 0.50
 - Mean clickbait penalty: 0.2328
 - Median clickbait penalty: 0.0002

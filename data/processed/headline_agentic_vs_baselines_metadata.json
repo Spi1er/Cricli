@@ -1,8 +1,8 @@
 {
-  "baselines": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_generation_rewrite_round2_critic_guided_scored_100.csv",
-  "agentic": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_generation_agentic_selected_100.csv",
-  "output": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_agentic_vs_baselines_eval.csv",
-  "report": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_agentic_vs_baselines_profile.md",
+  "baselines": "data/processed/headline_generation_rewrite_round2_critic_guided_scored_100.csv",
+  "agentic": "data/processed/headline_generation_agentic_selected_100.csv",
+  "output": "data/processed/headline_agentic_vs_baselines_eval.csv",
+  "report": "data/processed/headline_agentic_vs_baselines_profile.md",
   "device": "mps",
   "rows": 500,
   "seed_count": 100,

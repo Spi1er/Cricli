@@ -1,6 +1,6 @@
 # LLM Judge Headline Quality Profile
 
-- Scores: `/Users/pesun/STAT 5293 GenAI with LLM/Circli/projects/data/processed/headline_quality_llm_judge_scores.csv`
+- Scores: `data/processed/headline_quality_llm_judge_scores.csv`
 - Scored rows: 300
 - Pairwise preference examples: 167
 - Pointwise reward examples: 300

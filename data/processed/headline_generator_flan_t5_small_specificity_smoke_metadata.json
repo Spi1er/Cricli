@@ -1,9 +1,9 @@
 {
   "model_name_or_path": "google/flan-t5-small",
   "output_dir": "models/headline_generator_flan_t5_small_specificity_smoke",
-  "train_csv": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_specificity_train.csv",
-  "val_csv": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_specificity_val.csv",
-  "test_csv": "/Users/pesun/STAT 5293 GenAI with LLM/Cricli/projects/data/processed/headline_sft_specificity_test.csv",
+  "train_csv": "data/processed/headline_sft_specificity_train.csv",
+  "val_csv": "data/processed/headline_sft_specificity_val.csv",
+  "test_csv": "data/processed/headline_sft_specificity_test.csv",
   "predictions": "data/processed/headline_generator_flan_t5_small_specificity_smoke_predictions.csv",
   "device": "mps",
   "smoke_test": true,
