@@ -30,3 +30,16 @@ models/**/test_pair_predictions.csv
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+
+# Generated local reports/checks
+/data/processed/project_asset_check.json
+/docs/PROJECT_ASSET_CHECK.md
+
+# Ad hoc single-article demo outputs
+/data/processed/single_article_review_*.csv
+/data/processed/single_article_review_*.json
+/demo/single_article_review*.html
+
+# Temporary local model-check outputs
+/data/processed/*_model_check.*
+/data/processed/*_dryrun*

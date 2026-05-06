@@ -233,6 +233,36 @@ sed -n '1,180p' data/processed/headline_quality_llm_judge_agentic_v3_specificity
 
 These files reproduce the current narrative, model comparison, persona voting, and objective-selection findings.
 
+To check whether the local environment, data, models, and demos are ready, run:
+
+```bash
+python scripts/check_project_assets.py --python .venv/bin/python
+```
+
+This writes `docs/PROJECT_ASSET_CHECK.md` and `data/processed/project_asset_check.json`.
+
+To rebuild the product-facing review-console demo from existing artifacts, run:
+
+```bash
+python scripts/run_product_demo.py --limit-seeds 10 --python .venv/bin/python
+```
+
+This builds a compact 10-article demo, refreshes the asset check, and renders both English and Chinese HTML outputs. The lower-level commands are still available when needed:
+
+```bash
+python scripts/build_headline_review_demo_cases.py --limit-seeds 10
+python scripts/build_headline_review_demo_html.py
+python scripts/build_headline_review_demo_html_zh.py
+```
+
+The generated static demo is:
+
+```text
+demo/headline_review_console.html
+```
+
+It can be opened directly in a browser and does not require a web server.
+
 ### 5. Rebuild Processed Datasets
 
 The original raw dataset files are not tracked in Git. To fully rebuild `data/processed/`, first restore or download the raw data described in:
@@ -375,14 +405,18 @@ For most group review and report writing, Level 1 is enough. For model developme
 ## Recommended Reading Order
 
 1. `docs/PROJECT_STRUCTURE.md`
-2. `docs/TEAM_WORKPLAN.md`
-3. `docs/EVALUATION_REWARD_ANALYSIS.md`
-4. `docs/WORK_SUMMARY.md`
-5. `data/processed/headline_multi_agent_objective_profile.md`
-6. `data/processed/headline_audience_persona_votes_profile.md`
-7. `data/processed/headline_persona_calibrated_objective_profile.md`
-8. `data/processed/headline_quality_llm_judge_agentic_v3_specificity_profile.md`
-9. `data/processed/headline_sft_judge_error_analysis.md`
+2. `docs/PROJECT_CODE_STRUCTURE.md`
+3. `docs/DEMO_DELIVERY_SCOPE.md`
+4. `docs/SIMPLIFIED_PRODUCT_WORKFLOW.md`
+5. `docs/TEAM_WORKPLAN.md`
+6. `docs/EVALUATION_REWARD_ANALYSIS.md`
+7. `docs/WORK_SUMMARY.md`
+8. `data/processed/headline_review_demo_profile.md`
+9. `data/processed/headline_multi_agent_objective_profile.md`
+10. `data/processed/headline_audience_persona_votes_profile.md`
+11. `data/processed/headline_persona_calibrated_objective_profile.md`
+12. `data/processed/headline_quality_llm_judge_agentic_v3_specificity_profile.md`
+13. `data/processed/headline_sft_judge_error_analysis.md`
 
 ## Main Scripts
 
@@ -405,6 +439,12 @@ Evaluation and selection:
 - `scripts/run_llm_judge_agentic_comparison.py`
 - `scripts/build_multi_agent_objective_matrix.py`
 - `scripts/build_persona_calibrated_selector.py`
+- `scripts/run_product_demo.py`
+- `scripts/build_headline_review_demo_cases.py`
+- `scripts/build_headline_review_demo_html.py`
+- `scripts/build_headline_review_demo_html_zh.py`
+- `scripts/check_project_assets.py`
+- `scripts/review_single_article.py`
 - `scripts/run_audience_persona_voting.py`
 - `scripts/analyze_audience_persona_votes.py`
 
@@ -416,17 +456,47 @@ Auxiliary SFT generator experiments:
 
 ## Demo Direction
 
-The final demo should be a lightweight headline review console:
+The final demo is a lightweight headline review console built from a compact `data/processed/headline_review_demo_cases.csv`. The current local static version is generated at `demo/headline_review_console.html`:
 
 ```text
 Select one article summary
--> show candidate headlines
--> show critic scores and persona votes
+-> show 3-4 visible options: Human baseline, GenAI baseline, Low-risk alternative, Recommended
+-> show unified scores: Quality, Risk/Safety, Audience Fit, Objective Fit
 -> switch objective: trust / growth / editorial / specificity
--> show recommended headline and explanation
+-> show the persona-calibrated recommendation and why alternatives were not selected
 ```
 
-The demo should emphasize decision support, not raw generation quality.
+The demo should emphasize decision support, not raw generation quality. The full research candidate pool stays hidden behind the simplified demo dataset. Use `scripts/run_product_demo.py --limit-seeds 10` as the main demo rebuild command.
+
+For a real single-article use case, run:
+
+```bash
+python scripts/review_single_article.py \
+  --summary "paste article summary here" \
+  --category news \
+  --objective editorial \
+  --run-name example_article
+```
+
+Use `--objective all` to generate trust/safety, growth, editorial, and specificity recommendations from the same candidate set:
+
+```bash
+python scripts/review_single_article.py \
+  --summary "paste article summary here" \
+  --category news \
+  --objective all \
+  --run-name example_article
+```
+
+Without `--run-name`, the script writes the default latest-run files:
+
+```text
+data/processed/single_article_review_candidates.csv
+demo/single_article_review.html
+data/processed/single_article_review_metadata.json
+```
+
+With `--run-name`, it writes suffixed files and avoids overwriting previous reviews. Use `--dry-run` or `--force-fallback` to avoid API calls and generate deterministic fallback candidates.
 
 ## Project Positioning
 

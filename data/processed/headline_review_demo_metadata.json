@@ -1,0 +1,23 @@
+{
+  "matrix": "data/processed/headline_persona_calibrated_candidate_matrix.csv",
+  "selection": "data/processed/headline_persona_calibrated_objective_selection.csv",
+  "output": "data/processed/headline_review_demo_cases.csv",
+  "report": "data/processed/headline_review_demo_profile.md",
+  "rows": 113,
+  "seed_count": 10,
+  "objective_count": 4,
+  "recommended_rows": 40,
+  "visible_labels": [
+    "GenAI baseline",
+    "Human baseline",
+    "Low-risk alternative",
+    "Recommended"
+  ],
+  "unified_scorecard": [
+    "quality_score",
+    "risk_score",
+    "audience_score",
+    "objective_fit_score"
+  ],
+  "decision_explanation_column": "decision_explanation"
+}
