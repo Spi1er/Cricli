@@ -161,6 +161,217 @@ requirements-clickbait-bert.txt  Core dependencies used for critic training
 
 Large model weights, checkpoints, raw data, and local virtual environments are intentionally excluded from Git.
 
+## Local Reproduction Guide
+
+This section is for teammates who want to clone the repository and reproduce the current project state on their own machine.
+
+### 1. Clone The Repository
+
+```bash
+git clone https://github.com/Spi1er/Cricli.git
+cd Cricli/projects
+```
+
+The project code lives under `projects/`.
+
+### 2. Create The Python Environment
+
+Recommended Python version: Python 3.11 or 3.12. Python 3.13 worked in the original local environment for several scripts, but some ML packages may be easier to install on Python 3.11/3.12.
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+pip install -r requirements-clickbait-bert.txt
+pip install tabulate
+```
+
+Check the core packages:
+
+```bash
+python - <<'PY'
+import torch, transformers, pandas, sklearn
+print("torch:", torch.__version__)
+print("transformers:", transformers.__version__)
+print("ok")
+PY
+```
+
+On Apple Silicon, most local critic scripts can use MPS with `--device mps` when the script exposes a device argument. CPU also works, but training and scoring will be slower.
+
+### 3. What Is Already In Git
+
+The repository includes:
+
+- Source code in `scripts/`.
+- Project notes in `docs/`.
+- Dataset manifest in `data/docs/`.
+- Small processed CSV/JSON/JSONL/Markdown artifacts in `data/processed/`.
+- Current evaluation reports, judge labels, persona votes, and objective-selection matrices.
+
+The repository does not include:
+
+- Local model weights under `models/`.
+- Hugging Face base model cache.
+- Raw MIND data under `data/raw/`.
+- Local virtual environments.
+- API keys.
+
+This means teammates can immediately inspect the project results, but must retrain or restore local models before rerunning every scoring script end to end.
+
+### 4. Quick Reproduction From Existing Artifacts
+
+After installing dependencies, teammates can inspect the main outputs without regenerating API calls or retraining models:
+
+```bash
+sed -n '1,180p' docs/WORK_SUMMARY.md
+sed -n '1,180p' docs/PROJECT_STRUCTURE.md
+sed -n '1,180p' data/processed/headline_multi_agent_objective_profile.md
+sed -n '1,180p' data/processed/headline_audience_persona_votes_profile.md
+sed -n '1,180p' data/processed/headline_quality_llm_judge_agentic_v3_specificity_profile.md
+```
+
+These files reproduce the current narrative, model comparison, persona voting, and objective-selection findings.
+
+### 5. Rebuild Processed Datasets
+
+The original raw dataset files are not tracked in Git. To fully rebuild `data/processed/`, first restore or download the raw data described in:
+
+```text
+data/docs/DATASET_MANIFEST.md
+```
+
+Expected raw-data location:
+
+```text
+data/raw/
+```
+
+Then run:
+
+```bash
+python scripts/build_processed_datasets.py
+python scripts/build_headline_generation_seed.py
+```
+
+This rebuilds the clickbait split, MIND headline pool sample, and fixed 100-example headline generation seed set used across the project.
+
+### 6. Retrain Local Critics
+
+Because model weights are excluded from Git, retrain the local critics before rerunning model-based scoring or agentic selection. First prepare the local DistilBERT base checkpoint used by the critic scripts:
+
+```bash
+python - <<'PY'
+from pathlib import Path
+from transformers import AutoModelForSequenceClassification, AutoTokenizer
+
+out = Path("models/base/distilbert-base-uncased-seqcls")
+out.mkdir(parents=True, exist_ok=True)
+tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased")
+model = AutoModelForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=2)
+tokenizer.save_pretrained(out)
+model.save_pretrained(out)
+print(f"saved base checkpoint to {out}")
+PY
+```
+
+This command downloads from Hugging Face the first time it is run. After the base checkpoint exists locally, train the critics.
+
+Clickbait penalty critic:
+
+```bash
+python scripts/train_clickbait_penalty_bert.py \
+  --data data/processed/clickbait_penalty_splits.csv \
+  --out models/clickbait_penalty_distilbert \
+  --device mps
+```
+
+If MPS is unavailable, use:
+
+```bash
+python scripts/train_clickbait_penalty_bert.py \
+  --data data/processed/clickbait_penalty_splits.csv \
+  --out models/clickbait_penalty_distilbert \
+  --device cpu
+```
+
+Reward critics:
+
+```bash
+python scripts/train_headline_quality_reward_critic.py --device mps
+python scripts/train_headline_pairwise_reward_critic.py --device mps
+```
+
+Use `--device cpu` instead if MPS is unavailable.
+
+These scripts use the reward and pairwise examples in `data/processed/`.
+
+### 7. Optional API-Based Generation And Judging
+
+The API-based scripts require an OpenAI-compatible API key:
+
+```bash
+export OPENAI_API_KEY="your_api_key_here"
+```
+
+Zero-shot headline generation:
+
+```bash
+python scripts/run_zero_shot_headline_generation.py \
+  --input data/processed/headline_generation_eval_seed_100.csv \
+  --output data/processed/headline_generation_zero_shot_100.csv \
+  --metadata data/processed/headline_generation_zero_shot_100_metadata.json \
+  --model gpt-4o-mini
+```
+
+LLM-as-judge evaluation:
+
+```bash
+python scripts/run_llm_judge_headline_quality.py
+```
+
+Agentic comparison judging:
+
+```bash
+python scripts/run_llm_judge_agentic_comparison.py
+```
+
+API calls cost money and can take time. Use `--dry-run` where available before launching a full run.
+
+### 8. Reproduce The Current Selection Layer
+
+After processed artifacts and local critic outputs are available, rebuild the objective-selection matrix:
+
+```bash
+python scripts/build_multi_agent_objective_matrix.py
+```
+
+Run audience/persona voting if API access is configured:
+
+```bash
+python scripts/run_audience_persona_voting.py
+python scripts/analyze_audience_persona_votes.py
+```
+
+The main generated reports are:
+
+```text
+data/processed/headline_multi_agent_objective_profile.md
+data/processed/headline_audience_persona_votes_profile.md
+```
+
+### 9. Expected Reproduction Levels
+
+There are three practical levels of reproduction:
+
+| Level | What To Run | Requires API? | Requires Training? |
+| --- | --- | ---: | ---: |
+| Read current results | Inspect `docs/` and `data/processed/*.md` | No | No |
+| Rebuild local critics | Dataset scripts + critic training | No | Yes |
+| Regenerate LLM outputs | Generation, judge, persona scripts | Yes | Optional |
+
+For most group review and report writing, Level 1 is enough. For model development, Level 2 is needed. For refreshing judge labels or persona votes, Level 3 is needed.
+
 ## Recommended Reading Order
 
 1. `docs/PROJECT_STRUCTURE.md`
