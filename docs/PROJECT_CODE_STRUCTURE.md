@@ -57,7 +57,6 @@ The clickbait critic is used by the single-article demo. The quality and pairwis
 - Static review-console demo:
   - input: `data/processed/headline_review_demo_cases.csv`
   - output: `demo/headline_review_console.html`
-  - Chinese output: `demo/headline_review_console_zh.html`
 - Single-article review demo:
   - default output CSV: `data/processed/single_article_review_candidates.csv`
   - default output HTML: `demo/single_article_review.html`

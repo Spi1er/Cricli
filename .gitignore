@@ -43,3 +43,8 @@ models/**/test_pair_predictions.csv
 # Temporary local model-check outputs
 /data/processed/*_model_check.*
 /data/processed/*_dryrun*
+
+# Local-only presentation aids
+/demo/headline_review_console_zh.html
+/docs/HEADLINE_TRANSLATION_SAMPLES_ZH.md
+/scripts/build_headline_review_demo_html_zh.py

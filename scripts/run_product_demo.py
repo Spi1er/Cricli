@@ -6,8 +6,6 @@ This is the clean demo entrypoint for teammates and project review:
 1. Check local assets and dependency state.
 2. Build a small product-facing headline review dataset.
 3. Render the English static demo.
-4. Render the Chinese static demo.
-
 The research scripts remain available, but this command is the recommended
 surface for report/demo preparation.
 """
@@ -63,12 +61,10 @@ def main() -> None:
         ],
         "Build simplified demo cases",
     )
-    run_step([python, "scripts/build_headline_review_demo_html.py"], "Build English HTML demo")
-    run_step([python, "scripts/build_headline_review_demo_html_zh.py"], "Build Chinese HTML demo")
+    run_step([python, "scripts/build_headline_review_demo_html.py"], "Build HTML demo")
 
     print("\nDemo build complete.", flush=True)
-    print(f"- English: {rel(PROJECT_ROOT / 'demo' / 'headline_review_console.html')}")
-    print(f"- Chinese: {rel(PROJECT_ROOT / 'demo' / 'headline_review_console_zh.html')}")
+    print(f"- Demo: {rel(PROJECT_ROOT / 'demo' / 'headline_review_console.html')}")
     print(f"- Cases: {rel(PROJECT_ROOT / 'data' / 'processed' / 'headline_review_demo_cases.csv')}")
 
 

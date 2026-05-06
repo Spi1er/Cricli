@@ -35,7 +35,6 @@ MODEL_ASSETS = {
 }
 DEMO_ASSETS = [
     "demo/headline_review_console.html",
-    "demo/headline_review_console_zh.html",
     "demo/single_article_review.html",
 ]
 

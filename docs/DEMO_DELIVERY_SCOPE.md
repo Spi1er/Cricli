@@ -10,11 +10,10 @@ Use this command from `Cricli/projects`:
 python scripts/run_product_demo.py --limit-seeds 10 --python .venv/bin/python
 ```
 
-It runs the local asset check, builds a compact 10-article demo dataset, and renders both HTML demos:
+It runs the local asset check, builds a compact 10-article demo dataset, and renders the self-contained HTML demo:
 
 ```text
 demo/headline_review_console.html
-demo/headline_review_console_zh.html
 ```
 
 The demo should be presented as a decision-support console, not as a claim that our generator beats GPT. The product value is selecting and explaining the best headline under a business objective.
@@ -27,7 +26,6 @@ Core code:
 scripts/run_product_demo.py
 scripts/build_headline_review_demo_cases.py
 scripts/build_headline_review_demo_html.py
-scripts/build_headline_review_demo_html_zh.py
 scripts/check_project_assets.py
 scripts/review_single_article.py
 ```
@@ -39,7 +37,6 @@ data/processed/headline_review_demo_cases.csv
 data/processed/headline_review_demo_metadata.json
 data/processed/headline_review_demo_profile.md
 demo/headline_review_console.html
-demo/headline_review_console_zh.html
 ```
 
 Project docs:
@@ -49,7 +46,6 @@ README.md
 docs/PROJECT_CODE_STRUCTURE.md
 docs/DEMO_DELIVERY_SCOPE.md
 docs/SIMPLIFIED_PRODUCT_WORKFLOW.md
-docs/HEADLINE_TRANSLATION_SAMPLES_ZH.md
 ```
 
 ## Files To Keep Local Only

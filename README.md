@@ -247,12 +247,11 @@ To rebuild the product-facing review-console demo from existing artifacts, run:
 python scripts/run_product_demo.py --limit-seeds 10 --python .venv/bin/python
 ```
 
-This builds a compact 10-article demo, refreshes the asset check, and renders both English and Chinese HTML outputs. The lower-level commands are still available when needed:
+This builds a compact 10-article demo, refreshes the asset check, and renders the self-contained HTML output. The lower-level commands are still available when needed:
 
 ```bash
 python scripts/build_headline_review_demo_cases.py --limit-seeds 10
 python scripts/build_headline_review_demo_html.py
-python scripts/build_headline_review_demo_html_zh.py
 ```
 
 The generated static demo is:
@@ -442,7 +441,6 @@ Evaluation and selection:
 - `scripts/run_product_demo.py`
 - `scripts/build_headline_review_demo_cases.py`
 - `scripts/build_headline_review_demo_html.py`
-- `scripts/build_headline_review_demo_html_zh.py`
 - `scripts/check_project_assets.py`
 - `scripts/review_single_article.py`
 - `scripts/run_audience_persona_voting.py`
