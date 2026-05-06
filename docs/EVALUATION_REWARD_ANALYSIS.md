@@ -490,14 +490,42 @@ Important limitations:
 
 These limitations should be stated clearly in the final report. They do not invalidate the project, but they define it as a proof-of-concept workflow rather than a production optimizer.
 
-## 16. Recommended Next Steps For This Workstream
+## 16. Functional Extension: Persona-Calibrated Selection
+
+A first functional improvement has been implemented after the initial analysis: `scripts/build_persona_calibrated_selector.py`.
+
+The script turns persona voting from a standalone analysis artifact into an operational selection signal:
+
+```text
+base objective score
++ persona target preference adjustment
++ consensus / persona-best bonus
+= persona-calibrated objective score
+```
+
+New outputs:
+
+- `data/processed/headline_persona_calibrated_candidate_matrix.csv`
+- `data/processed/headline_persona_calibrated_objective_selection.csv`
+- `data/processed/headline_persona_calibrated_objective_profile.md`
+- `data/processed/headline_persona_calibrated_objective_metadata.json`
+
+Default calibration strength is `0.50`, so persona signals adjust the local critic score without fully replacing it. The strength can be changed with:
+
+```bash
+python scripts/build_persona_calibrated_selector.py --calibration-strength 1.0
+```
+
+This extension makes the project closer to the target product: a headline review console where users can switch between trust, growth, editorial, and specificity objectives and receive different recommendations.
+
+## 17. Recommended Next Steps For This Workstream
 
 Highest-priority next steps:
 
-1. Select 3 to 5 reward-misalignment examples for the final report.
-2. Add a compact table comparing original, zero-shot, optimized, agentic v1, agentic v2, and agentic v3.
-3. Merge persona scores into the objective matrix more explicitly, or at least analyze how persona winners differ from objective-selector winners.
-4. Write report text around the central lesson: reward design matters more than simply adding another generator.
+1. Use `headline_persona_calibrated_objective_selection.csv` as the selection source for the demo interface.
+2. Select 3 to 5 reward-misalignment examples for the final report.
+3. Add a compact table comparing original, zero-shot, optimized, agentic v1, agentic v2, and agentic v3.
+4. Compare base objective selections against persona-calibrated selections in the demo.
 5. If time allows, calibrate local reward against LLM judge using held-out examples and report correlation or disagreement rate.
 
 Work to avoid:
@@ -507,7 +535,7 @@ Work to avoid:
 - Claims that local reward selection beats zero-shot generation in general.
 - Overstating the system as full RL or autonomous multi-agent reasoning.
 
-## 17. Report-Ready Summary
+## 18. Report-Ready Summary
 
 A concise version for the final report:
 

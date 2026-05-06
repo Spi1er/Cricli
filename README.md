@@ -380,8 +380,9 @@ For most group review and report writing, Level 1 is enough. For model developme
 4. `docs/WORK_SUMMARY.md`
 5. `data/processed/headline_multi_agent_objective_profile.md`
 6. `data/processed/headline_audience_persona_votes_profile.md`
-7. `data/processed/headline_quality_llm_judge_agentic_v3_specificity_profile.md`
-8. `data/processed/headline_sft_judge_error_analysis.md`
+7. `data/processed/headline_persona_calibrated_objective_profile.md`
+8. `data/processed/headline_quality_llm_judge_agentic_v3_specificity_profile.md`
+9. `data/processed/headline_sft_judge_error_analysis.md`
 
 ## Main Scripts
 
@@ -403,6 +404,7 @@ Evaluation and selection:
 - `scripts/run_llm_judge_headline_quality.py`
 - `scripts/run_llm_judge_agentic_comparison.py`
 - `scripts/build_multi_agent_objective_matrix.py`
+- `scripts/build_persona_calibrated_selector.py`
 - `scripts/run_audience_persona_voting.py`
 - `scripts/analyze_audience_persona_votes.py`
 

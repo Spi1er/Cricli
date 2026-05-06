@@ -1,0 +1,82 @@
+{
+  "matrix": "data/processed/headline_multi_agent_candidate_matrix.csv",
+  "base_selection": "data/processed/headline_multi_agent_objective_selection.csv",
+  "persona_votes": "data/processed/headline_audience_persona_votes.csv",
+  "output_matrix": "data/processed/headline_persona_calibrated_candidate_matrix.csv",
+  "output_selection": "data/processed/headline_persona_calibrated_objective_selection.csv",
+  "report": "data/processed/headline_persona_calibrated_objective_profile.md",
+  "calibration_strength": 0.5,
+  "rows": 1200,
+  "seed_count": 100,
+  "selection_rows": 400,
+  "rows_with_persona_signal": 419,
+  "seeds_with_persona_signal": 90,
+  "calibration_config": {
+    "trust_safety": {
+      "base_score": "objective_trust_safety_score",
+      "description": "Trust-sensitive selector: preserve the original safety objective, then boost candidates preferred by trust-sensitive readers.",
+      "terms": {
+        "trust_sensitive_reader_overall": 0.35,
+        "trust_sensitive_reader_trust": 0.25,
+        "persona_consensus_best_rate": 0.2,
+        "persona_best_rate": 0.1
+      }
+    },
+    "growth": {
+      "base_score": "objective_growth_score",
+      "description": "Growth selector: preserve the original growth objective, then boost candidates that growth-oriented readers find engaging.",
+      "terms": {
+        "growth_reader_overall": 0.3,
+        "growth_reader_engagement": 0.35,
+        "growth_reader_audience_fit": 0.15,
+        "persona_consensus_best_rate": 0.1
+      }
+    },
+    "editorial": {
+      "base_score": "objective_editorial_score",
+      "description": "Editorial selector: preserve balanced editorial scoring, then boost candidates preferred by editorial reviewers and busy readers.",
+      "terms": {
+        "editorial_reviewer_overall": 0.35,
+        "editorial_reviewer_clarity": 0.2,
+        "busy_news_reader_overall": 0.1,
+        "persona_consensus_best_rate": 0.15
+      }
+    },
+    "specificity": {
+      "base_score": "objective_specificity_score",
+      "description": "Specificity selector: preserve source-supported detail scoring, then boost candidates that remain clear and audience-fit.",
+      "terms": {
+        "editorial_reviewer_clarity": 0.2,
+        "editorial_reviewer_audience_fit": 0.15,
+        "busy_news_reader_clarity": 0.1,
+        "persona_mean_audience_fit": 0.15
+      }
+    }
+  },
+  "change_summary": [
+    {
+      "objective": "editorial",
+      "seeds": 100,
+      "changed_count": 56,
+      "changed_rate": 0.56
+    },
+    {
+      "objective": "growth",
+      "seeds": 100,
+      "changed_count": 60,
+      "changed_rate": 0.6
+    },
+    {
+      "objective": "specificity",
+      "seeds": 100,
+      "changed_count": 62,
+      "changed_rate": 0.62
+    },
+    {
+      "objective": "trust_safety",
+      "seeds": 100,
+      "changed_count": 51,
+      "changed_rate": 0.51
+    }
+  ]
+}
