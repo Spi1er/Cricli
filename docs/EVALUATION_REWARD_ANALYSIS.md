@@ -373,7 +373,7 @@ Framing:
 
 Candidate matrix:
 
-- 1,200 candidate actions.
+- 1,000 candidate actions.
 - 100 fixed evaluation articles.
 - Multiple candidate sources.
 

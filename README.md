@@ -85,7 +85,7 @@ The SFT generator work is kept as an auxiliary candidate source. It is not the c
 
 ### Selection Layer
 
-- Multi-agent candidate matrix with 1,200 candidate actions over 100 fixed evaluation articles.
+- Multi-agent candidate matrix with 1,000 candidate actions over 100 fixed evaluation articles.
 - Objective-specific selectors for trust/safety, growth, editorial quality, and specificity.
 - Persona voting results over 100 evaluation articles.
 

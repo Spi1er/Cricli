@@ -115,6 +115,6 @@ article summary
 
 ## Interpretation
 
-The demo should use this file instead of the full 1,200-row research matrix. The UI can still mention that candidates come from a larger hidden pool, but it should show only the human baseline, GenAI baseline, low-risk alternative, and final recommendation.
+The demo should use this file instead of the full 1,000-row research matrix. The UI can still mention that candidates come from a larger hidden pool, but it should show only the human baseline, GenAI baseline, low-risk alternative, and final recommendation.
 
 The standalone clickbait critic is folded into the Risk/Safety score. The product-facing decision is shown through a unified scorecard: Quality, Risk/Safety, Audience Fit, and Objective Fit. Each non-selected option includes a short reason explaining why it lost to the recommendation.

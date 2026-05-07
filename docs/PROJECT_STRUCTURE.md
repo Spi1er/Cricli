@@ -82,7 +82,7 @@ The SFT generators are not the main project objective. They provide extra candid
 | Quality reward critic | Distilled multi-dimensional local judge | Complete v1/v2 |
 | Pairwise reward critic | Preference-style local scorer | Complete v1/v2 |
 | LLM-as-judge | High-quality reference evaluator | Complete for major comparisons |
-| Audience/persona voting | Proposal-relevant audience preference layer | Script complete, results partially generated |
+| Audience/persona voting | Proposal-relevant audience preference layer | Complete on 100 fixed evaluation articles |
 | Style/support heuristics | Length and summary-support features | Complete |
 
 ### Selection Policies
@@ -101,9 +101,9 @@ The strongest alignment is with:
 - **RQ1:** iterative / agentic workflow versus zero-shot and rewrite baselines.
 - **RQ3:** small critic models that approximate expensive LLM evaluation at lower inference cost.
 
-The weakest alignment is currently:
+The main caveat is:
 
-- **RQ2:** audience persona voting. The script exists and a vote file has been generated, but the persona layer still needs to be fully summarized and integrated into the final candidate matrix.
+- **RQ2:** audience persona voting is simulated with LLM personas rather than real human annotators. It is complete for the current project scope and has been summarized and integrated into the persona-calibrated selector.
 
 ## 5. What Changed From the Proposal
 
@@ -124,11 +124,10 @@ Changes to keep bounded:
 
 The next project work should focus on:
 
-1. Finish or summarize audience/persona voting results.
-2. Merge persona votes into the candidate matrix as additional reward channels.
-3. Compare selector outputs with and without persona signals.
-4. Add cost/latency/quality comparison between LLM judge and local critics.
-5. Prepare a final report around proposal questions RQ1, RQ2, and RQ3.
+1. Use the completed persona voting results as audience-preference evidence in the final report.
+2. Compare selector outputs with and without persona signals when space allows.
+3. Add cost/latency/quality comparison between LLM judge and local critics if the final report needs another quantitative angle.
+4. Prepare a final report around proposal questions RQ1, RQ2, and RQ3.
 
 Work that should be deprioritized:
 
