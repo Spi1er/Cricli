@@ -65,6 +65,7 @@ They need a review layer that compares candidates under trust, growth, editorial
 ### Inputs
 
 - `README.md`
+- `docs/PRODUCT_DEMO_SCENARIOS.md`
 - `docs/PROJECT_STRUCTURE.md`
 - `data/processed/headline_multi_agent_objective_profile.md`
 - `data/processed/headline_audience_persona_votes_profile.md`
@@ -77,6 +78,7 @@ They need a review layer that compares candidates under trust, growth, editorial
 - A list of demo cases.
 - Demo copy explaining each objective mode.
 - One diagram showing the user workflow.
+- A presentation scenario script in `docs/PRODUCT_DEMO_SCENARIOS.md`.
 
 ### Acceptance Criteria
 
@@ -85,6 +87,14 @@ This workstream is complete when a teammate can explain in one minute:
 ```text
 Who uses Cricli, what problem it solves, and why it is useful even when GenAI can already generate headlines.
 ```
+
+Current scenario anchors:
+
+- seed `10`: objective changes recommendation;
+- seed `2`: trust/safety keeps editorial control;
+- seed `9`: specificity selects a concrete alternative;
+- seed `1`: validated GenAI baseline;
+- seed `14`: SFT adds specificity.
 
 ## 3. Workstream B: Evaluation And Reward
 
@@ -174,6 +184,13 @@ Make sure teammates and graders can understand what is included, what is exclude
 - A reproducibility appendix or checklist.
 - Confirmation that no local absolute paths remain in tracked files.
 
+Current reproducibility deliverables:
+
+- `data/docs/DATASET_MANIFEST.md`
+- `docs/SETUP_NOTES.md`
+- `docs/REPRODUCIBILITY_CHECKLIST.md`
+- `docs/PROJECT_ASSET_CHECK.md` as a local health-check output
+
 ### Acceptance Criteria
 
 This workstream is complete when a teammate can clone the repo and know which reproduction level they are running:
@@ -183,6 +200,7 @@ This workstream is complete when a teammate can clone the repo and know which re
 | Level 1 | Read existing reports and artifacts. |
 | Level 2 | Retrain local critics and rebuild local scores. |
 | Level 3 | Regenerate API-based outputs and LLM/persona labels. |
+| Level 4 | Restore raw data and rebuild processed datasets from scratch. |
 
 ## 5. Workstream D: Demo Interface
 
@@ -190,7 +208,10 @@ This workstream is complete when a teammate can clone the repo and know which re
 
 Build a lightweight review console that shows the value of the system without requiring a production backend.
 
-Recommended implementation: Streamlit or Gradio.
+Current implementation:
+
+- static fallback: `demo/headline_review_console.html`;
+- live AI-style demo: `demo/gradio_app.py`.
 
 ### Minimum Demo Flow
 
@@ -203,32 +224,35 @@ Select an article
 -> show recommended headline and explanation
 ```
 
+The live demo should start with presentation scenarios before free exploration.
+
 ### Required Views
 
 1. Article selector.
 2. Candidate headline table.
-3. Score breakdown by candidate.
+3. Score breakdown by candidate, including clickbait penalty.
 4. Objective selector: trust/safety, growth, editorial, specificity.
 5. Recommended headline panel.
 6. Persona vote summary.
+7. Candidate source pool summary.
 
 ### Inputs
 
+- `data/processed/headline_review_demo_cases.csv`
+- `data/processed/headline_review_demo_cases_full.csv`
 - `data/processed/headline_multi_agent_candidate_matrix.csv`
 - `data/processed/headline_multi_agent_objective_selection.csv`
 - `data/processed/headline_audience_persona_votes.csv`
 - `data/processed/headline_generation_eval_seed_100.csv`
+- `docs/PRODUCT_DEMO_SCENARIOS.md`
 
-### Suggested File
-
-```text
-app.py
-```
-
-or:
+### Demo Files
 
 ```text
-demo/headline_review_console.py
+demo/gradio_app.py
+demo/headline_review_console.html
+scripts/run_product_demo.py
+scripts/build_headline_review_demo_html.py
 ```
 
 ### Deliverables
@@ -244,7 +268,7 @@ This workstream is complete when a user can run one command and interact with a 
 Example:
 
 ```bash
-streamlit run app.py
+python demo/gradio_app.py
 ```
 
 ## 6. Workstream E: Report And Presentation

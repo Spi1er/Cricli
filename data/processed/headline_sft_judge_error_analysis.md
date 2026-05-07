@@ -19,9 +19,9 @@ The specificity-aware SFT model is slightly better than the generic SFT model on
 
 | comparison | mean_llm_overall_delta | mean_local_final_delta |
 | --- | --- | --- |
-| specificity_sft - generic_sft | 0.080 | 0.033 |
-| specificity_sft - original | -0.370 | 0.727 |
-| generic_sft - original | -0.450 | 0.694 |
+| specificity_sft - generic_sft | 0.080 | 0.003 |
+| specificity_sft - original | -0.370 | 0.724 |
+| generic_sft - original | -0.450 | 0.721 |
 
 ## Failure Groups
 

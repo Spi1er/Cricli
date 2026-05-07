@@ -48,6 +48,39 @@ PREFERRED_OBJECTIVE_ORDER = [
     "specificity",
 ]
 
+SCENARIO_PRESETS = [
+    {
+        "label": "Objective Changes Recommendation",
+        "seed_id": 10,
+        "objective": "growth",
+        "takeaway": "The best headline depends on whether the team is optimizing for editorial balance, growth, specificity, or trust.",
+    },
+    {
+        "label": "Trust / Safety Prefers Conservative Editorial",
+        "seed_id": 2,
+        "objective": "trust_safety",
+        "takeaway": "A strong GenAI title can be useful, but trust-sensitive publishing may still prefer a conservative editorial headline.",
+    },
+    {
+        "label": "Specificity Selects Concrete Alternative",
+        "seed_id": 9,
+        "objective": "specificity",
+        "takeaway": "When specificity is explicit, the selector can move away from the default baseline and choose a more concrete candidate.",
+    },
+    {
+        "label": "Validated GenAI Baseline",
+        "seed_id": 1,
+        "objective": "editorial",
+        "takeaway": "Cricli can validate a strong GenAI baseline when the scores and persona signals support publishing it.",
+    },
+    {
+        "label": "SFT Adds Specificity",
+        "seed_id": 14,
+        "objective": "specificity",
+        "takeaway": "SFT is not the main product claim, but it can add useful specificity-focused candidates to the review pool.",
+    },
+]
+
 
 def clean_value(value: Any) -> Any:
     if value is None:
@@ -142,6 +175,7 @@ def build_payload(df: pd.DataFrame) -> dict[str, Any]:
     return {
         "objectives": objectives,
         "articles": [articles[key] for key in sorted(articles)],
+        "scenarios": SCENARIO_PRESETS,
         "metadata": {
             "article_count": len(articles),
             "row_count": int(len(df)),
@@ -182,7 +216,7 @@ def render_html(payload: dict[str, Any]) -> str:
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       letter-spacing: 0;
     }
-    button, input { font: inherit; }
+    button, input, select { font: inherit; }
     .app-shell {
       min-height: 100vh;
       display: grid;
@@ -218,7 +252,15 @@ def render_html(payload: dict[str, Any]) -> str:
       font-size: 12px;
       white-space: nowrap;
     }
-    .search {
+    .field-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 760;
+      text-transform: uppercase;
+      margin: 0 0 -6px;
+    }
+    .search,
+    .select-control {
       width: 100%;
       border: 1px solid var(--line);
       border-radius: 8px;
@@ -227,7 +269,12 @@ def render_html(payload: dict[str, Any]) -> str:
       padding: 11px 12px;
       outline: none;
     }
-    .search:focus {
+    .select-control {
+      cursor: pointer;
+      min-height: 44px;
+    }
+    .search:focus,
+    .select-control:focus {
       border-color: var(--teal);
       box-shadow: 0 0 0 3px var(--teal-soft);
     }
@@ -244,25 +291,31 @@ def render_html(payload: dict[str, Any]) -> str:
     }
     .mini-stat b { display: block; font-size: 18px; }
     .mini-stat span { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; }
-    .article-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      overflow: auto;
-      padding-right: 2px;
+    .scenario-panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-soft);
+      padding: 10px;
     }
-    .article-button {
-      text-align: left;
+    .scenario-heading {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 760;
+      margin: 0 0 8px;
+      text-transform: uppercase;
+    }
+    .scenario-help {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .current-article-card {
       border: 1px solid var(--line);
       border-radius: 8px;
       background: var(--panel);
-      padding: 10px 11px;
-      cursor: pointer;
-      min-height: 74px;
-      transition: border-color 120ms ease, transform 120ms ease, box-shadow 120ms ease;
+      padding: 11px;
     }
-    .article-button:hover { border-color: #aeb9a1; transform: translateY(-1px); }
-    .article-button.active { border-color: var(--teal); box-shadow: 0 0 0 2px var(--teal-soft); }
     .article-topline {
       display: flex;
       align-items: center;
@@ -281,10 +334,7 @@ def render_html(payload: dict[str, Any]) -> str:
       color: #394456;
       font-size: 13px;
       line-height: 1.35;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      margin: 0;
     }
     main {
       min-width: 0;
@@ -302,6 +352,23 @@ def render_html(payload: dict[str, Any]) -> str:
       line-height: 1.04;
       margin: 0;
       max-width: 860px;
+    }
+    .scenario-banner {
+      border: 1px solid #c7d2fe;
+      border-left: 5px solid var(--blue);
+      border-radius: 8px;
+      background: #f4f7ff;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      display: none;
+    }
+    .scenario-banner b {
+      display: block;
+      margin-bottom: 4px;
+    }
+    .scenario-banner span {
+      color: #44516a;
+      line-height: 1.45;
     }
     .objective-tabs {
       display: flex;
@@ -488,7 +555,6 @@ def render_html(payload: dict[str, Any]) -> str:
     @media (max-width: 920px) {
       .app-shell { grid-template-columns: 1fr; }
       .sidebar { position: relative; min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
-      .article-list { max-height: 260px; }
       .article-context { grid-template-columns: 1fr; }
       .score-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
@@ -507,18 +573,26 @@ def render_html(payload: dict[str, Any]) -> str:
         <div class="brand-title">Headline Review Console</div>
         <div class="brand-pill">Local demo</div>
       </div>
-      <input id="search" class="search" type="search" placeholder="Search articles or headlines">
+      <label class="field-label" for="articleSelect">Select article or headline</label>
+      <select id="articleSelect" class="select-control"></select>
+      <input id="search" class="search" type="search" placeholder="Filter article cards">
       <div class="mini-stats">
         <div class="mini-stat"><b id="statArticles">0</b><span>articles</span></div>
         <div class="mini-stat"><b id="statObjectives">0</b><span>objectives</span></div>
         <div class="mini-stat"><b id="statRows">0</b><span>visible rows</span></div>
       </div>
-      <div id="articleList" class="article-list"></div>
+      <div class="scenario-panel">
+        <p class="scenario-heading">Presentation scenarios</p>
+        <select id="scenarioSelect" class="select-control"></select>
+        <p class="scenario-help">Use these curated cases for a cleaner presentation path.</p>
+      </div>
+      <div id="currentArticleCard" class="current-article-card"></div>
     </aside>
     <main>
       <div class="topbar">
         <h1 class="page-title" id="pageTitle">Headline recommendation</h1>
       </div>
+      <div id="scenarioBanner" class="scenario-banner"></div>
       <div id="objectiveTabs" class="objective-tabs"></div>
       <section class="article-context">
         <div>
@@ -544,6 +618,7 @@ def render_html(payload: dict[str, Any]) -> str:
     const PAYLOAD = $data_json;
     const OBJECTIVES = PAYLOAD.objectives || [];
     const ARTICLES = PAYLOAD.articles || [];
+    const SCENARIOS = PAYLOAD.scenarios || [];
     const state = {
       query: "",
       objective: OBJECTIVES[0] ? OBJECTIVES[0].objective : "",
@@ -591,10 +666,32 @@ def render_html(payload: dict[str, Any]) -> str:
       return obj.options.find(option => option.is_recommended) || obj.options[0];
     }
 
+    function getCurrentScenario() {
+      return SCENARIOS.find(scenario => scenario.seed_id === state.seedId && scenario.objective === state.objective) || null;
+    }
+
+    function applyScenario(scenario) {
+      if (!scenario) return;
+      state.query = "";
+      byId("search").value = "";
+      state.seedId = scenario.seed_id;
+      state.objective = scenario.objective;
+      render();
+    }
+
     function filteredArticles() {
       const query = state.query.trim().toLowerCase();
       if (!query) return ARTICLES;
       return ARTICLES.filter(article => articleText(article).includes(query));
+    }
+
+    function articleSelectLabel(article) {
+      const objective = article.objectives && article.objectives[state.objective]
+        ? article.objectives[state.objective]
+        : getObjective(article);
+      const recommended = getRecommended(objective);
+      const headline = recommended ? recommended.headline : article.summary;
+      return "#" + article.seed_id + " / " + text(article.category, "article").toUpperCase() + " / " + text(headline, "").slice(0, 92);
     }
 
     function makeButton(className, textValue, onClick) {
@@ -612,41 +709,73 @@ def render_html(payload: dict[str, Any]) -> str:
       byId("statRows").textContent = PAYLOAD.metadata.row_count || 0;
     }
 
-    function renderList() {
-      const list = byId("articleList");
-      list.innerHTML = "";
+    function renderScenarios() {
+      const select = byId("scenarioSelect");
+      select.innerHTML = "";
+      const emptyOption = document.createElement("option");
+      emptyOption.value = "";
+      emptyOption.textContent = "Choose a presentation scenario";
+      select.appendChild(emptyOption);
+      SCENARIOS.forEach(scenario => {
+        const index = SCENARIOS.indexOf(scenario);
+        const objective = OBJECTIVES.find(obj => obj.objective === scenario.objective);
+        const option = document.createElement("option");
+        option.value = String(index);
+        option.textContent = scenario.label + " (#" + scenario.seed_id + " / " + (objective ? objective.objective_name : scenario.objective) + ")";
+        select.appendChild(option);
+      });
+      const activeIndex = SCENARIOS.findIndex(scenario => scenario.seed_id === state.seedId && scenario.objective === state.objective);
+      select.value = activeIndex >= 0 ? String(activeIndex) : "";
+    }
+
+    function renderArticleSelect() {
+      const select = byId("articleSelect");
       const rows = filteredArticles();
+      select.innerHTML = "";
       if (!rows.length) {
-        const empty = document.createElement("div");
-        empty.className = "empty";
-        empty.textContent = "No matching articles.";
-        list.appendChild(empty);
+        const option = document.createElement("option");
+        option.value = "";
+        option.textContent = "No matching articles";
+        select.appendChild(option);
+        select.disabled = true;
         return;
       }
+      select.disabled = false;
       if (!rows.find(article => article.seed_id === state.seedId)) {
         state.seedId = rows[0].seed_id;
       }
       rows.forEach(article => {
-        const button = makeButton(
-          "article-button" + (article.seed_id === state.seedId ? " active" : ""),
-          "",
-          () => { state.seedId = article.seed_id; render(); }
-        );
-        const top = document.createElement("div");
-        top.className = "article-topline";
-        const category = document.createElement("span");
-        category.className = "category";
-        category.textContent = text(article.category, "article");
-        const seed = document.createElement("span");
-        seed.className = "seed";
-        seed.textContent = "#" + article.seed_id;
-        top.append(category, seed);
-        const snippet = document.createElement("div");
-        snippet.className = "article-snippet";
-        snippet.textContent = text(article.summary, "");
-        button.append(top, snippet);
-        list.appendChild(button);
+        const option = document.createElement("option");
+        option.value = String(article.seed_id);
+        option.textContent = articleSelectLabel(article);
+        select.appendChild(option);
       });
+      select.value = String(state.seedId);
+    }
+
+    function renderCurrentArticleCard() {
+      const container = byId("currentArticleCard");
+      container.innerHTML = "";
+      const article = getArticle(state.seedId);
+      if (!article) {
+        container.className = "empty";
+        container.textContent = "No matching article.";
+        return;
+      }
+      container.className = "current-article-card";
+      const top = document.createElement("div");
+      top.className = "article-topline";
+      const category = document.createElement("span");
+      category.className = "category";
+      category.textContent = text(article.category, "article");
+      const seed = document.createElement("span");
+      seed.className = "seed";
+      seed.textContent = "#" + article.seed_id;
+      top.append(category, seed);
+      const snippet = document.createElement("p");
+      snippet.className = "article-snippet";
+      snippet.textContent = text(article.summary, "");
+      container.append(top, snippet);
     }
 
     function renderTabs() {
@@ -742,8 +871,22 @@ def render_html(payload: dict[str, Any]) -> str:
       const obj = getObjective(article);
       const recommended = getRecommended(obj);
       if (!article || !obj) return;
+      const scenario = getCurrentScenario();
 
       byId("pageTitle").textContent = text(obj.objective_name, "Headline") + " recommendation";
+      const banner = byId("scenarioBanner");
+      if (scenario) {
+        banner.style.display = "block";
+        banner.innerHTML = "";
+        const title = document.createElement("b");
+        title.textContent = scenario.label;
+        const note = document.createElement("span");
+        note.textContent = scenario.takeaway;
+        banner.append(title, note);
+      } else {
+        banner.style.display = "none";
+        banner.innerHTML = "";
+      }
       byId("articleMeta").textContent = text(article.category, "Article") + " article #" + article.seed_id;
       byId("summaryText").textContent = text(article.summary, "");
       byId("candidatePool").textContent = text(obj.hidden_candidate_pool_size, "0");
@@ -759,10 +902,24 @@ def render_html(payload: dict[str, Any]) -> str:
 
     function render() {
       renderStats();
+      renderArticleSelect();
+      renderScenarios();
       renderTabs();
-      renderList();
+      renderCurrentArticleCard();
       renderMain();
     }
+
+    byId("articleSelect").addEventListener("change", event => {
+      const seedId = Number(event.target.value);
+      if (Number.isNaN(seedId)) return;
+      state.seedId = seedId;
+      render();
+    });
+
+    byId("scenarioSelect").addEventListener("change", event => {
+      const scenario = SCENARIOS[Number(event.target.value)];
+      applyScenario(scenario);
+    });
 
     byId("search").addEventListener("input", event => {
       state.query = event.target.value;

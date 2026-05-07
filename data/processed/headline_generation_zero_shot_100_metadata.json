@@ -1,6 +1,6 @@
 {
   "input": "data/processed/headline_generation_eval_seed_100.csv",
-  "output": "projects/data/processed/headline_generation_zero_shot_100.csv",
+  "output": "data/processed/headline_generation_zero_shot_100.csv",
   "model": "gpt-4o-mini",
   "base_url": "https://api.openai.com/v1",
   "temperature": null,
@@ -8,7 +8,7 @@
   "reasoning_effort": "none",
   "total_rows": 100,
   "completed_rows": 100,
-  "newly_generated_rows": 94,
+  "newly_generated_rows": 100,
   "errors": 0,
   "dry_run": false
 }

@@ -1,9 +1,9 @@
 {
   "input": "data/processed/headline_audience_persona_votes.csv",
   "report": "data/processed/headline_audience_persona_votes_profile.md",
-  "rows": 1676,
-  "clean_rows": 1676,
-  "completed_seed_count": 90,
+  "rows": 1816,
+  "clean_rows": 1816,
+  "completed_seed_count": 100,
   "persona_count": 4,
   "personas": [
     "busy_news_reader",

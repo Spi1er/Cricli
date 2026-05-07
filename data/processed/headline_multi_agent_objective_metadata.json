@@ -7,7 +7,7 @@
   "matrix_output": "data/processed/headline_multi_agent_candidate_matrix.csv",
   "selection_output": "data/processed/headline_multi_agent_objective_selection.csv",
   "report": "data/processed/headline_multi_agent_objective_profile.md",
-  "rows": 1200,
+  "rows": 1000,
   "seed_count": 100,
   "selection_rows": 400,
   "objectives": {
@@ -66,7 +66,7 @@
     }
   },
   "candidate_sources": {
-    "agentic_generator_v3_candidate": 500,
+    "agentic_generator_v3_candidate": 300,
     "human_editor": 100,
     "api_zero_shot_generator": 100,
     "critic_guided_rewriter_round1": 100,

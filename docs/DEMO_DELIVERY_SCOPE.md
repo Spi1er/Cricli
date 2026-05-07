@@ -4,19 +4,29 @@ This document defines the current delivery scope for the Cricli project after si
 
 ## Main Product Demo
 
-Use this command from `Cricli/projects`:
+Use this command from `Cricli`:
 
 ```bash
 python scripts/run_product_demo.py --limit-seeds 10 --python .venv/bin/python
 ```
 
-It runs the local asset check, builds a compact 10-article demo dataset, and renders the self-contained HTML demo:
+It runs the local asset check, builds a compact 10-article static HTML dataset, builds a full 100-seed Gradio case explorer dataset, and renders the self-contained HTML demo:
 
 ```text
 demo/headline_review_console.html
 ```
 
 The demo should be presented as a decision-support console, not as a claim that our generator beats GPT. The product value is selecting and explaining the best headline under a business objective.
+
+Use `docs/PRODUCT_DEMO_SCENARIOS.md` as the presentation script. It defines five featured live-demo scenarios:
+
+- objective changes recommendation;
+- trust/safety keeps editorial control;
+- specificity selects a concrete alternative;
+- validated GenAI baseline;
+- SFT adds specificity.
+
+The first three scenarios are the recommended presentation path. The last two are useful backup scenarios for Q&A or longer demos.
 
 ## Files To Keep In Git
 
@@ -28,6 +38,7 @@ scripts/build_headline_review_demo_cases.py
 scripts/build_headline_review_demo_html.py
 scripts/check_project_assets.py
 scripts/review_single_article.py
+demo/gradio_app.py
 ```
 
 Main demo artifacts:
@@ -36,6 +47,9 @@ Main demo artifacts:
 data/processed/headline_review_demo_cases.csv
 data/processed/headline_review_demo_metadata.json
 data/processed/headline_review_demo_profile.md
+data/processed/headline_review_demo_cases_full.csv
+data/processed/headline_review_demo_cases_full_metadata.json
+data/processed/headline_review_demo_cases_full_profile.md
 demo/headline_review_console.html
 ```
 
@@ -46,6 +60,9 @@ README.md
 docs/PROJECT_CODE_STRUCTURE.md
 docs/DEMO_DELIVERY_SCOPE.md
 docs/SIMPLIFIED_PRODUCT_WORKFLOW.md
+docs/PRODUCT_DEMO_SCENARIOS.md
+docs/SETUP_NOTES.md
+docs/REPRODUCIBILITY_CHECKLIST.md
 ```
 
 ## Files To Keep Local Only
@@ -91,8 +108,31 @@ This keeps the product easy to understand while preserving the research pipeline
 ## What Is Still Missing
 
 - API key setup is still needed for fresh API generation, LLM-as-judge, and persona voting.
-- SFT generator checkpoints are not restored locally, but they are auxiliary and not required for the simplified demo.
+- SFT generator checkpoints are restored in the latest local rerun, but they remain excluded from GitHub and must be retrained on a fresh clone.
 - The final report should use the simplified product framing and avoid overemphasizing agentic/RL claims.
+
+## Gradio Live Demo
+
+The static HTML console remains the stable fallback demo. The Gradio app is the live interactive demo and uses all 100 saved article seeds when `data/processed/headline_review_demo_cases_full.csv` is present:
+
+```bash
+python demo/gradio_app.py
+```
+
+The Gradio interface includes:
+
+- five curated presentation scenarios;
+- a 100-seed saved case explorer;
+- a custom summary review mode;
+- candidate source pool summaries;
+- candidate-level quality, risk/safety, clickbait penalty, audience fit, objective fit, and decision scores;
+- persona vote tables and objective-switch previews.
+
+If port 7860 is busy:
+
+```bash
+python demo/gradio_app.py --port 7861
+```
 
 ## Next Delivery Step
 

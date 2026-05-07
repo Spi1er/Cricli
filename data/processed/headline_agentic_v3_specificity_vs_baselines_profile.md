@@ -15,47 +15,47 @@ This report re-scores all variants with the same local critics: clickbait penalt
 
 | variant | rows | mean_clickbait_penalty | clickbait_rate | mean_quality_reward | mean_pairwise_reward | mean_final_score | mean_pred_overall |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| original | 100 | 0.2733 | 0.2700 | 4.0225 | 0.3817 | 5.2464 | 3.9102 |
-| zero_shot | 100 | 0.0879 | 0.0900 | 4.6073 | 0.8133 | 6.3344 | 4.6556 |
-| round1_final | 100 | 0.0755 | 0.0700 | 4.6009 | 0.8067 | 6.3290 | 4.6466 |
-| round2_final | 100 | 0.0656 | 0.0600 | 4.5908 | 0.8011 | 6.3176 | 4.6331 |
-| agentic_selected | 100 | 0.0535 | 0.0500 | 4.6087 | 0.8191 | 6.3552 | 4.6572 |
+| original | 100 | 0.2807 | 0.2800 | 4.0313 | 0.3817 | 5.2553 | 3.9238 |
+| zero_shot | 100 | 0.0872 | 0.0800 | 4.6279 | 0.8133 | 6.3643 | 4.6836 |
+| round1_final | 100 | 0.0714 | 0.0600 | 4.6206 | 0.8067 | 6.3594 | 4.6735 |
+| round2_final | 100 | 0.0603 | 0.0500 | 4.6156 | 0.8045 | 6.3573 | 4.6670 |
+| agentic_selected | 100 | 0.0626 | 0.0600 | 4.6185 | 0.8033 | 6.3582 | 4.6679 |
 
 ## Paired Final-Score Deltas
 
 | comparison | mean_delta_final_score | median_delta_final_score | agentic_win_rate |
 | --- | --- | --- | --- |
-| agentic_selected - original | 1.1088 | 0.8386 | 0.9400 |
-| agentic_selected - zero_shot | 0.0208 | 0.0025 | 0.5100 |
-| agentic_selected - round1_final | 0.0262 | 0.0065 | 0.5200 |
-| agentic_selected - round2_final | 0.0376 | 0.0002 | 0.5000 |
+| agentic_selected - original | 1.1029 | 0.8401 | 0.9100 |
+| agentic_selected - zero_shot | -0.0061 | 0.0000 | 0.4700 |
+| agentic_selected - round1_final | -0.0012 | 0.0000 | 0.4800 |
+| agentic_selected - round2_final | 0.0009 | 0.0000 | 0.4800 |
 
 ## Best Variant by Local Final Score
 
 | variant | best_count | best_rate |
 | --- | --- | --- |
-| zero_shot | 48 | 0.4800 |
-| agentic_selected | 43 | 0.4300 |
-| original | 5 | 0.0500 |
-| round1_final | 2 | 0.0200 |
-| round2_final | 2 | 0.0200 |
+| zero_shot | 53 | 0.5300 |
+| agentic_selected | 41 | 0.4100 |
+| original | 4 | 0.0400 |
+| round1_final | 1 | 0.0100 |
+| round2_final | 1 | 0.0100 |
 
 ## Top Agentic Selected Examples
 
 | seed_id | category | headline | clickbait_penalty | quality_reward | pairwise_reward | final_score |
 | --- | --- | --- | --- | --- | --- | --- |
-| 65 | travel | Brevard County TRIAD's Senior Santa Program Delivers Holiday Cheer to Seniors | 0.0002 | 4.7085 | 1.1395 | 6.6454 |
-| 25 | lifestyle | Adam's Corner and Fisher House Support Military Families with Housing and Child Care | 0.0002 | 4.7055 | 1.1241 | 6.6342 |
-| 31 | autos | Duane Roots' 1,500hp Charger Hellcat Features E90 and Nitrous Setup | 0.0002 | 4.6961 | 1.1499 | 6.6336 |
-| 60 | news | Sky Valley Education Center Teachers Evacuate Students After Light Fire | 0.0001 | 4.6940 | 1.1075 | 6.6168 |
-| 62 | news | Dr. Ulrich Klopfer's Family Discovers 2,246 Preserved Fetuses in Illinois Home | 0.0002 | 4.6999 | 1.0468 | 6.6036 |
-| 6 | health | Local Airman Returns Home to Miami Valley on Friday | 0.0001 | 4.7090 | 1.0259 | 6.5994 |
-| 42 | weather | Lincoln Center Hosts Free Event for Fort Collins' Climate Action Anniversary | 0.0001 | 4.7024 | 1.0274 | 6.5978 |
-| 13 | travel | Game Wardens Investigate Fatal ATV Crash in Montville, West of Belfast | 0.0001 | 4.7032 | 1.0281 | 6.5967 |
-| 76 | news | Steny Hoyer Discusses Impeachment Decision After Hearing with Diplomats | 0.0001 | 4.6801 | 1.0724 | 6.5943 |
-| 50 | foodanddrink | Vice Officers Storm Building Linked to Design District Massage Parlor Raid | 0.0001 | 4.6913 | 1.0466 | 6.5940 |
-| 39 | sports | Hawaii Man Catches 100-Pound Ulua, Fulfilling Fishermen's Dream | 0.0001 | 4.7121 | 0.9968 | 6.5921 |
-| 99 | news | Missouri Auditor Nicole Galloway Issues Subpoena to Clay County Officials | 0.0001 | 4.6901 | 1.0436 | 6.5920 |
+| 60 | news | Sky Valley Education Center Teachers Evacuate Students After Fluorescent Lights Catch Fire | 0.0002 | 4.7200 | 1.1294 | 6.6601 |
+| 65 | travel | Brevard County TRIAD's Senior Santa Program Delivers Cheer to Seniors | 0.0015 | 4.7211 | 1.1246 | 6.6566 |
+| 31 | autos | Duane Roots' 1,500hp Hemi Charger Hellcat Features E90 and Nitrous | 0.0001 | 4.7168 | 1.1341 | 6.6550 |
+| 25 | lifestyle | Adam's Corner and Fisher House Support Military Families with Housing and Child Care | 0.0004 | 4.7176 | 1.1241 | 6.6527 |
+| 42 | weather | Fort Collins Marks 20th Anniversary of Climate Action with Free Lincoln Center Event | 0.0001 | 4.7146 | 1.0597 | 6.6286 |
+| 16 | travel | Halloween Film Festival at Tampa Theatre Includes Live Podcast and Rocky Horror Talk | 0.0002 | 4.7123 | 1.0614 | 6.6261 |
+| 72 | health | Connor Murphy Highlights Photo Manipulation Strategies in 2016 YouTube Video | 0.0090 | 4.7171 | 1.0538 | 6.6237 |
+| 76 | news | Steny Hoyer Discusses Impeachment Decision After Hearing with Kent and Taylor | 0.0001 | 4.7022 | 1.0745 | 6.6231 |
+| 50 | foodanddrink | Vice Officers Raid Building Linked to Design District Massage Parlor | 0.0001 | 4.7089 | 1.0558 | 6.6214 |
+| 62 | news | Family Discovers 2,246 Preserved Fetuses at Dr. Ulrich Klopfer's Illinois Home | 0.0001 | 4.7135 | 1.0247 | 6.6143 |
+| 6 | health | Local Airman Returns Home to Miami Valley to Warm Welcome | 0.0001 | 4.7237 | 1.0133 | 6.6142 |
+| 99 | news | Missouri Auditor Nicole Galloway Issues Subpoena to Clay County Officials | 0.0001 | 4.7029 | 1.0436 | 6.6108 |
 
 ## Interpretation
 

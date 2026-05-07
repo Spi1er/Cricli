@@ -92,8 +92,8 @@ Test metrics:
 | Metric | Value |
 | --- | ---: |
 | Accuracy | 0.9891 |
-| Precision | 0.9912 |
-| Recall | 0.9869 |
+| Precision | 0.9900 |
+| Recall | 0.9881 |
 | F1 | 0.9890 |
 | ROC-AUC | 0.9988 |
 
@@ -132,7 +132,7 @@ Result:
 | Variant | Clickbait penalty | Clickbait rate |
 | --- | ---: | ---: |
 | Original MIND title | 0.2688 | 27% |
-| Zero-shot API title | 0.0879 | 9% |
+| Zero-shot API title | 0.0891 | 9% |
 
 The zero-shot baseline is very strong. It remains the hardest system to beat in average LLM-judge overall quality.
 
@@ -161,26 +161,27 @@ Result:
 | Stage | Mean clickbait penalty | Clickbait rate |
 | --- | ---: | ---: |
 | Original | 0.2688 | 27% |
-| Zero-shot | 0.0879 | 9% |
-| Round-1 final | 0.0755 | 7% |
-| Round-2 final / optimized | 0.0656 | 6% |
+| Zero-shot | 0.0891 | 9% |
+| Round-1 final | 0.0814 | 8% |
+| Round-2 final / optimized | 0.0585 | 5% |
 
 Interpretation:
 
 - Critic-guided rewriting lowered clickbait beyond zero-shot.
 - However, LLM judge later showed that lower clickbait did not always mean better overall headline quality.
 
-## 6. Original LLM Judge Evaluation
+## 6. Final LLM Judge Evaluation
 
 Judge:
 
 - `gpt-4o-mini`
 
-Compared variants:
+Compared variants in the final v3 judge run:
 
 - `original`
 - `zero_shot`
 - `optimized` / round-2 final
+- `agentic_v3`
 
 Judge dimensions:
 
@@ -195,17 +196,19 @@ Mean LLM-judge scores:
 
 | Variant | Faithfulness | Clarity | Specificity | Attractiveness | Non-clickbait | Overall | Clickbait penalty |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| original | 4.09 | 4.42 | 3.61 | 3.53 | 4.48 | 3.83 | 0.2688 |
-| zero_shot | 4.88 | 4.95 | 4.61 | 4.12 | 4.96 | 4.85 | 0.0879 |
-| optimized | 4.86 | 4.94 | 4.56 | 4.07 | 4.96 | 4.82 | 0.0656 |
+| original | 4.08 | 4.39 | 3.64 | 3.57 | 4.43 | 3.81 | 0.281 |
+| zero_shot | 4.87 | 4.94 | 4.57 | 4.02 | 4.99 | 4.77 | 0.087 |
+| optimized | 4.84 | 4.93 | 4.53 | 3.98 | 4.98 | 4.73 | 0.060 |
+| agentic_v3 | 4.73 | 4.75 | 4.40 | 4.02 | 4.94 | 4.50 | 0.063 |
 
 Winner counts:
 
 | Variant | Best count |
 | --- | ---: |
-| zero_shot | 71 |
-| original | 24 |
-| optimized | 5 |
+| zero_shot | 60 |
+| original | 26 |
+| agentic_v3 | 13 |
+| optimized | 1 |
 
 Key finding:
 
@@ -242,8 +245,8 @@ Test metrics:
 
 | Metric | Value |
 | --- | ---: |
-| Test macro MAE | 0.4921 |
-| Test overall MAE | 0.5437 |
+| Test macro MAE | 0.4686 |
+| Test overall MAE | 0.5188 |
 
 ### Pairwise Reward Critic v1
 
@@ -266,8 +269,8 @@ Test metrics:
 
 | Metric | Value |
 | --- | ---: |
-| Test accuracy | 0.8462 |
-| Symmetric AUC | 0.8462 |
+| Test accuracy | 0.6923 |
+| Symmetric AUC | 0.8107 |
 
 ## 8. Agentic Selection v1
 
@@ -345,10 +348,10 @@ Test metrics:
 
 | Metric | v1 | v2 |
 | --- | ---: | ---: |
-| Test macro MAE | 0.4921 | 0.4648 |
-| Faithfulness MAE | 0.5244 | 0.4597 |
-| Clarity MAE | 0.3913 | 0.3464 |
-| Non-clickbait MAE | 0.3745 | 0.2738 |
+| Test macro MAE | 0.4686 | 0.4546 |
+| Faithfulness MAE | 0.5205 | 0.4466 |
+| Clarity MAE | 0.3732 | 0.3379 |
+| Non-clickbait MAE | 0.3533 | 0.2611 |
 
 The pointwise v2 critic improved overall alignment to judge labels.
 
@@ -362,10 +365,10 @@ Test metrics:
 
 | Metric | v1 | v2 |
 | --- | ---: | ---: |
-| Test accuracy | 0.8462 | 0.8193 |
-| Symmetric AUC | 0.8462 | 0.8378 |
+| Test accuracy | 0.6923 | 0.8193 |
+| Symmetric AUC | 0.8107 | 0.8379 |
 
-The pairwise v2 metrics are slightly lower, but the v2 task is broader and harder because it includes agentic-vs-baseline comparisons.
+The pairwise v2 critic improved in the latest local rerun after adding more agentic-vs-baseline comparisons.
 
 ## 10. Agentic Selection v2
 
@@ -421,33 +424,33 @@ Local critic result:
 
 | Variant | Clickbait penalty | Clickbait rate | Quality reward | Pairwise reward | Final score |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| zero_shot | 0.0879 | 9% | 4.6073 | 0.8133 | 6.3344 |
-| optimized | 0.0656 | 6% | 4.5908 | 0.8011 | 6.3176 |
-| agentic_v3 | 0.0535 | 5% | 4.6087 | 0.8191 | 6.3552 |
+| zero_shot | 0.0872 | 8% | 4.6279 | 0.8133 | 6.3643 |
+| optimized | 0.0603 | 5% | 4.6156 | 0.8045 | 6.3573 |
+| agentic_v3 | 0.0626 | 6% | 4.6185 | 0.8033 | 6.3582 |
 
-Local evaluation finally ranked agentic v3 above zero-shot and optimized.
+Local evaluation treats zero-shot, optimized, and agentic v3 as very close. Zero-shot has the highest mean local final score in the latest rerun, while agentic v3 remains a controllable low-risk selected candidate source.
 
 LLM judge result:
 
 | Variant | Faithfulness | Clarity | Specificity | Attractiveness | Non-clickbait | Overall | Clickbait penalty |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| original | 3.96 | 4.34 | 3.63 | 3.53 | 4.38 | 3.74 | 0.273 |
-| zero_shot | 4.82 | 4.91 | 4.60 | 4.00 | 4.98 | 4.71 | 0.088 |
-| optimized | 4.78 | 4.89 | 4.56 | 3.98 | 4.97 | 4.68 | 0.066 |
-| agentic_v3 | 4.73 | 4.71 | 4.52 | 4.03 | 4.90 | 4.49 | 0.053 |
+| original | 4.08 | 4.39 | 3.64 | 3.57 | 4.43 | 3.81 | 0.281 |
+| zero_shot | 4.87 | 4.94 | 4.57 | 4.02 | 4.99 | 4.77 | 0.087 |
+| optimized | 4.84 | 4.93 | 4.53 | 3.98 | 4.98 | 4.73 | 0.060 |
+| agentic_v3 | 4.73 | 4.75 | 4.40 | 4.02 | 4.94 | 4.50 | 0.063 |
 
 LLM judge progression:
 
 | Metric | Agentic v1 | Agentic v2 | Agentic v3 |
 | --- | ---: | ---: | ---: |
-| Overall | 4.33 | 4.45 | 4.49 |
-| Best count | 2 | 8 | 17 |
-| Delta vs zero-shot | -0.43 | -0.35 | -0.22 |
-| Delta vs optimized | -0.38 | -0.32 | -0.19 |
+| Overall | 4.33 | 4.45 | 4.50 |
+| Best count | 2 | 8 | 13 |
+| Delta vs zero-shot | -0.43 | -0.35 | -0.27 |
+| Delta vs optimized | -0.38 | -0.32 | -0.23 |
 
 Interpretation:
 
-Agentic v3 still does not beat zero-shot on average LLM-judge overall quality, but it substantially narrows the gap and increases judge wins. It also achieves the lowest clickbait penalty.
+Agentic v3 still does not beat zero-shot on average LLM-judge overall quality, but it remains stronger than the earlier agentic runs and provides an explicit reward-selected candidate. The current rerun shows the tradeoff clearly: agentic selection is controllable, but direct GenAI remains the strongest average generator.
 
 ## 12. Error Analysis
 
@@ -462,30 +465,30 @@ Case counts:
 
 | Case type | Count |
 | --- | ---: |
-| tie_or_mixed | 42 |
-| zero_shot_beats_agentic | 22 |
-| local_reward_overestimates_agentic | 17 |
-| agentic_beats_zero_shot | 15 |
-| local_reward_underestimates_agentic | 4 |
+| tie_or_mixed | 53 |
+| zero_shot_beats_agentic | 20 |
+| local_reward_overestimates_agentic | 16 |
+| agentic_beats_zero_shot | 9 |
+| local_reward_underestimates_agentic | 2 |
 
 Mean deltas:
 
 | Metric | Value |
 | --- | ---: |
-| LLM judge delta, agentic - zero-shot | -0.22 |
-| Local reward delta, agentic - zero-shot | +0.021 |
+| LLM judge delta, agentic - zero-shot | -0.27 |
+| Local reward delta, agentic - zero-shot | -0.006 |
 
-This shows reward misalignment: the local reward model slightly prefers agentic v3, but the LLM judge still prefers zero-shot on average.
+This shows reward misalignment in magnitude: the local reward model sees agentic v3 and zero-shot as nearly tied, but the LLM judge still prefers zero-shot on average.
 
 Main dimensions where agentic loses to zero-shot:
 
 | Dimension | Loss count |
 | --- | ---: |
-| specificity | 29 |
-| clarity | 28 |
-| faithfulness | 22 |
-| attractiveness | 19 |
-| non_clickbait | 10 |
+| specificity | 28 |
+| clarity | 21 |
+| attractiveness | 20 |
+| faithfulness | 20 |
+| non_clickbait | 5 |
 
 Key error pattern:
 
@@ -528,9 +531,9 @@ The agentic headline is clean, but drops the bankruptcy context.
 5. Reward-model iteration helps:
 
 ```text
-Agentic overall: 4.33 -> 4.45 -> 4.49
-Best count:      2 -> 8 -> 17
-Gap to zero-shot: -0.43 -> -0.35 -> -0.22
+Agentic overall: 4.33 -> 4.45 -> 4.50
+Best count:      2 -> 8 -> 13
+Gap to zero-shot: -0.43 -> -0.35 -> -0.27
 ```
 
 6. Candidate generation quality matters as much as reward modeling. V3 improved mainly because the candidate prompt produced more specific and useful options.
@@ -559,7 +562,26 @@ The current system is best framed as:
 Small data, real workflow.
 ```
 
-## 15. Recommended Next Steps
+## 15. Reproducibility Status
+
+The latest local rerun completed both implementation lines:
+
+1. Reward / post-training line:
+   - OpenAI candidate generation and judging.
+   - DistilBERT clickbait, quality reward, and pairwise reward critics.
+   - v2 reward data and v2 critic retraining.
+   - Agentic v3 specificity selection.
+   - Persona voting and persona-calibrated objective selection.
+
+2. SFT generator line:
+   - Generic FLAN-T5-small SFT generator.
+   - Specificity-aware FLAN-T5-small SFT generator.
+   - Local critic evaluation.
+   - LLM judge comparison and error analysis.
+
+Exact generated headline strings are not expected to be bit-for-bit identical across reruns because OpenAI generation/judging and local SFT training are stochastic. The reproducibility target is the full workflow, tracked artifacts, fixed 100-example seed set, and aggregate metrics.
+
+## 16. Recommended Next Steps
 
 Highest-value next steps:
 
@@ -587,7 +609,7 @@ Before outputting each headline, silently verify that every named entity, number
 
 5. For a more advanced extension, train a small generator with SFT or DPO on preferred headlines. This would move the project from inference-time reranking toward actual policy optimization.
 
-## 16. Files Most Relevant For Report
+## 17. Files Most Relevant For Report
 
 Core scripts:
 

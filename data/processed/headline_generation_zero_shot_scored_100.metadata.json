@@ -6,10 +6,10 @@
   "rows": 100,
   "threshold": 0.5,
   "original_mean_penalty": 0.26883121726429005,
-  "zero_shot_mean_penalty": 0.08787191659212112,
-  "mean_delta": -0.18095931957241468,
+  "zero_shot_mean_penalty": 0.08913534879684448,
+  "mean_delta": -0.17969586516994518,
   "original_clickbait_rate": 0.27,
   "zero_shot_clickbait_rate": 0.09,
-  "reduced_rate": 0.71,
-  "device": "cpu"
+  "reduced_rate": 0.62,
+  "device": "mps"
 }

@@ -210,6 +210,12 @@ Expected outputs:
 - `data/processed/headline_review_demo_profile.md`
 - `data/processed/headline_review_demo_metadata.json`
 
+The Gradio live demo can also use the full 100-seed case explorer produced by `scripts/run_product_demo.py`:
+
+- `data/processed/headline_review_demo_cases_full.csv`
+- `data/processed/headline_review_demo_cases_full_profile.md`
+- `data/processed/headline_review_demo_cases_full_metadata.json`
+
 For a real single-article review flow, run:
 
 ```bash

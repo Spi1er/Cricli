@@ -9,7 +9,7 @@
   "scored_rows": 400,
   "newly_judged_seed_count": 100,
   "errors": 0,
-  "pairwise_examples": 348,
+  "pairwise_examples": 330,
   "reward_examples": 400,
   "variants": [
     "original",

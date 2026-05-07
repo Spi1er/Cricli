@@ -2,34 +2,34 @@
 
 - Scores: `data/processed/headline_quality_llm_judge_agentic_v3_specificity_scores.csv`
 - Scored rows: 400
-- Pairwise preference examples: 348
+- Pairwise preference examples: 330
 - Pointwise reward examples: 400
 
 ## Mean Scores By Variant
 
 | variant | faithfulness | clarity | specificity | attractiveness | non_clickbait | overall | clickbait_penalty |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| original | 3.96 | 4.34 | 3.63 | 3.53 | 4.38 | 3.74 | 0.273 |
-| zero_shot | 4.82 | 4.91 | 4.6 | 4.0 | 4.98 | 4.71 | 0.088 |
-| optimized | 4.78 | 4.89 | 4.56 | 3.98 | 4.97 | 4.68 | 0.066 |
-| agentic_selected | 4.73 | 4.71 | 4.52 | 4.03 | 4.9 | 4.49 | 0.053 |
+| original | 4.08 | 4.39 | 3.64 | 3.57 | 4.43 | 3.81 | 0.281 |
+| zero_shot | 4.87 | 4.94 | 4.57 | 4.02 | 4.99 | 4.77 | 0.087 |
+| optimized | 4.84 | 4.93 | 4.53 | 3.98 | 4.98 | 4.73 | 0.060 |
+| agentic_selected | 4.73 | 4.75 | 4.4 | 4.02 | 4.94 | 4.5 | 0.063 |
 
 ## Judge Winners
 
 | variant | best_count | worst_count |
 | --- | --- | --- |
-| original | 25 | 51 |
-| zero_shot | 56 | 3 |
-| optimized | 2 | 23 |
-| agentic_selected | 17 | 23 |
+| original | 26 | 51 |
+| zero_shot | 60 | 1 |
+| optimized | 1 | 22 |
+| agentic_selected | 13 | 26 |
 
 ## Agentic Overall Deltas
 
 | comparison | mean_overall_delta | median_overall_delta | agentic_win_rate |
 | --- | --- | --- | --- |
-| agentic_selected - original | 0.750 | 1.000 | 0.540 |
-| agentic_selected - zero_shot | -0.220 | 0.000 | 0.190 |
-| agentic_selected - optimized | -0.190 | 0.000 | 0.210 |
+| agentic_selected - original | 0.690 | 1.000 | 0.520 |
+| agentic_selected - zero_shot | -0.270 | 0.000 | 0.110 |
+| agentic_selected - optimized | -0.230 | 0.000 | 0.140 |
 
 ## Interpretation
 

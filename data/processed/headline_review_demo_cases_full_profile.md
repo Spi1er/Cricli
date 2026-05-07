@@ -16,58 +16,77 @@ article summary
 
 - Input matrix: `data/processed/headline_persona_calibrated_candidate_matrix.csv`
 - Input selection: `data/processed/headline_persona_calibrated_objective_selection.csv`
-- Output demo cases: `data/processed/headline_review_demo_cases.csv`
+- Output demo cases: `data/processed/headline_review_demo_cases_full.csv`
 
 ## Coverage
 
 | demo_rows | seed_count | objective_count | mean_visible_options | mean_hidden_pool_size |
 | --- | --- | --- | --- | --- |
-| 118 | 10 | 4 | 2.950 | 10.000 |
+| 1179 | 100 | 4 | 2.947 | 10.000 |
 
 ## Visible Option Counts
 
 | objective | display_label | visible_count |
 | --- | --- | --- |
-| editorial | Recommended | 10 |
-| editorial | Low-risk alternative | 9 |
-| editorial | Human baseline | 8 |
-| editorial | GenAI baseline | 2 |
-| growth | Recommended | 10 |
-| growth | Human baseline | 9 |
-| growth | Low-risk alternative | 9 |
-| growth | GenAI baseline | 1 |
-| specificity | Recommended | 10 |
-| specificity | Human baseline | 9 |
-| specificity | Low-risk alternative | 9 |
-| specificity | GenAI baseline | 3 |
-| trust_safety | Recommended | 10 |
-| trust_safety | Low-risk alternative | 9 |
-| trust_safety | Human baseline | 7 |
-| trust_safety | GenAI baseline | 3 |
+| editorial | Recommended | 100 |
+| editorial | Low-risk alternative | 77 |
+| editorial | Human baseline | 72 |
+| editorial | GenAI baseline | 43 |
+| growth | Recommended | 100 |
+| growth | Human baseline | 81 |
+| growth | Low-risk alternative | 81 |
+| growth | GenAI baseline | 31 |
+| specificity | Recommended | 100 |
+| specificity | Human baseline | 81 |
+| specificity | Low-risk alternative | 74 |
+| specificity | GenAI baseline | 49 |
+| trust_safety | Recommended | 100 |
+| trust_safety | Low-risk alternative | 75 |
+| trust_safety | Human baseline | 69 |
+| trust_safety | GenAI baseline | 46 |
 
 ## Recommended Variant Counts
 
 | objective | variant | recommended_count |
 | --- | --- | --- |
-| editorial | zero_shot | 8 |
-| editorial | original | 2 |
-| growth | zero_shot | 9 |
-| growth | original | 1 |
-| specificity | zero_shot | 7 |
-| specificity | agentic_candidate | 1 |
-| specificity | generic_sft | 1 |
-| specificity | original | 1 |
-| trust_safety | zero_shot | 7 |
-| trust_safety | original | 3 |
+| editorial | zero_shot | 57 |
+| editorial | original | 28 |
+| editorial | agentic_selected | 9 |
+| editorial | generic_sft | 2 |
+| editorial | specificity_sft | 2 |
+| editorial | agentic_candidate | 1 |
+| editorial | round2_final | 1 |
+| growth | zero_shot | 68 |
+| growth | original | 19 |
+| growth | agentic_selected | 6 |
+| growth | generic_sft | 3 |
+| growth | agentic_candidate | 1 |
+| growth | round1_final | 1 |
+| growth | round2_final | 1 |
+| growth | specificity_sft | 1 |
+| specificity | zero_shot | 51 |
+| specificity | original | 19 |
+| specificity | agentic_selected | 16 |
+| specificity | generic_sft | 9 |
+| specificity | agentic_candidate | 2 |
+| specificity | specificity_sft | 2 |
+| specificity | round2_final | 1 |
+| trust_safety | zero_shot | 54 |
+| trust_safety | original | 31 |
+| trust_safety | agentic_selected | 8 |
+| trust_safety | generic_sft | 3 |
+| trust_safety | specificity_sft | 2 |
+| trust_safety | agentic_candidate | 1 |
+| trust_safety | round2_final | 1 |
 
 ## Mean Recommended Unified Scores
 
 | objective | mean_quality_score | mean_risk_score | mean_audience_score | mean_objective_fit_score | mean_support_score | mean_unified_decision_score |
 | --- | --- | --- | --- | --- | --- | --- |
-| editorial | 0.819 | 1.000 | 0.945 | 0.961 | 0.541 | 0.919 |
-| growth | 0.834 | 1.000 | 0.935 | 0.941 | 0.572 | 0.924 |
-| specificity | 0.842 | 1.000 | 0.920 | 0.919 | 0.600 | 0.908 |
-| trust_safety | 0.807 | 1.000 | 0.940 | 0.954 | 0.503 | 0.924 |
+| editorial | 0.866 | 0.960 | 0.912 | 0.948 | 0.697 | 0.917 |
+| growth | 0.865 | 0.912 | 0.904 | 0.919 | 0.687 | 0.900 |
+| specificity | 0.881 | 0.955 | 0.895 | 0.922 | 0.737 | 0.912 |
+| trust_safety | 0.865 | 0.965 | 0.910 | 0.947 | 0.694 | 0.923 |
 
 ## Recommended Examples
 

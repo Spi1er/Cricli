@@ -1,12 +1,12 @@
 {
   "matrix": "data/processed/headline_persona_calibrated_candidate_matrix.csv",
   "selection": "data/processed/headline_persona_calibrated_objective_selection.csv",
-  "output": "data/processed/headline_review_demo_cases.csv",
-  "report": "data/processed/headline_review_demo_profile.md",
-  "rows": 118,
-  "seed_count": 10,
+  "output": "data/processed/headline_review_demo_cases_full.csv",
+  "report": "data/processed/headline_review_demo_cases_full_profile.md",
+  "rows": 1179,
+  "seed_count": 100,
   "objective_count": 4,
-  "recommended_rows": 40,
+  "recommended_rows": 400,
   "visible_labels": [
     "GenAI baseline",
     "Human baseline",

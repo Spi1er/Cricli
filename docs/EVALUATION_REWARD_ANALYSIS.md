@@ -111,7 +111,7 @@ The clickbait critic is effective as a low-cost risk detector. It is useful as a
 
 ## 6. Baseline LLM Judge Results
 
-Initial LLM-as-judge compared three variants:
+The final LLM-as-judge run includes the three main baselines and the agentic selected variant. The baseline rows are:
 
 - `original`: human-written MIND headline.
 - `zero_shot`: GPT-generated headline.
@@ -121,21 +121,21 @@ Mean LLM judge scores:
 
 | Variant | Faithfulness | Clarity | Specificity | Attractiveness | Non-clickbait | Overall | Clickbait Penalty |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| original | 4.09 | 4.42 | 3.61 | 3.53 | 4.48 | 3.83 | 0.2688 |
-| zero_shot | 4.88 | 4.95 | 4.61 | 4.12 | 4.96 | 4.85 | 0.0879 |
-| optimized | 4.86 | 4.94 | 4.56 | 4.07 | 4.96 | 4.82 | 0.0656 |
+| original | 4.08 | 4.39 | 3.64 | 3.57 | 4.43 | 3.81 | 0.281 |
+| zero_shot | 4.87 | 4.94 | 4.57 | 4.02 | 4.99 | 4.77 | 0.087 |
+| optimized | 4.84 | 4.93 | 4.53 | 3.98 | 4.98 | 4.73 | 0.060 |
 
 Judge winner counts:
 
 | Variant | Best Count | Worst Count |
 | --- | ---: | ---: |
-| original | 24 | 75 |
-| zero_shot | 71 | 11 |
-| optimized | 5 | 14 |
+| original | 26 | 51 |
+| zero_shot | 60 | 1 |
+| optimized | 1 | 22 |
 
 Key finding:
 
-Clickbait-guided rewriting reduced clickbait penalty from 0.0879 to 0.0656, but it did not improve average LLM-judge overall quality over zero-shot. This is the first major reward-design lesson:
+Clickbait-guided rewriting reduced clickbait penalty relative to zero-shot, but it did not improve average LLM-judge overall quality over zero-shot. This is the first major reward-design lesson:
 
 ```text
 Lower clickbait risk is valuable, but clickbait reduction alone is not the same as headline quality.
@@ -174,10 +174,10 @@ Test metrics:
 
 | Metric | v1 | v2 |
 | --- | ---: | ---: |
-| Test macro MAE | 0.4921 | 0.4648 |
-| Faithfulness MAE | 0.5244 | 0.4597 |
-| Clarity MAE | 0.3913 | 0.3464 |
-| Non-clickbait MAE | 0.3745 | 0.2738 |
+| Test macro MAE | 0.4686 | 0.4546 |
+| Faithfulness MAE | 0.5205 | 0.4466 |
+| Clarity MAE | 0.3732 | 0.3379 |
+| Non-clickbait MAE | 0.3533 | 0.2611 |
 
 Interpretation:
 
@@ -206,12 +206,12 @@ Test metrics:
 
 | Metric | v1 | v2 |
 | --- | ---: | ---: |
-| Test accuracy | 0.8462 | 0.8193 |
-| Symmetric AUC | 0.8462 | 0.8378 |
+| Test accuracy | 0.6923 | 0.8193 |
+| Symmetric AUC | 0.8107 | 0.8379 |
 
 Interpretation:
 
-The v2 pairwise task is broader and harder because it includes more candidate types. The slight drop does not necessarily mean the model is worse; the evaluation distribution became more diverse.
+The v2 pairwise critic improved on the latest local rerun after adding more agentic-vs-baseline preference examples. The task is still small, so these metrics should be treated as useful diagnostics rather than a final production benchmark.
 
 ## 8. Agentic / Best-of-N Reward-Guided Selection
 
@@ -234,20 +234,20 @@ Progression:
 | --- | --- | ---: | ---: | ---: | ---: |
 | Agentic v1 | Initial local reward reranking | 4.33 | 2 | -0.43 | 0.068 |
 | Agentic v2 | Reward critic updated with more judge data | 4.45 | 8 | -0.35 | 0.069 |
-| Agentic v3 | Specificity-focused generation and reward preset | 4.49 | 17 | -0.22 | 0.053 |
+| Agentic v3 | Specificity-focused generation and reward preset | 4.50 | 13 | -0.27 | 0.063 |
 
 Final v3 comparison:
 
 | Variant | Faithfulness | Clarity | Specificity | Attractiveness | Non-clickbait | Overall | Clickbait Penalty |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| original | 3.96 | 4.34 | 3.63 | 3.53 | 4.38 | 3.74 | 0.273 |
-| zero_shot | 4.82 | 4.91 | 4.60 | 4.00 | 4.98 | 4.71 | 0.088 |
-| optimized | 4.78 | 4.89 | 4.56 | 3.98 | 4.97 | 4.68 | 0.066 |
-| agentic_selected | 4.73 | 4.71 | 4.52 | 4.03 | 4.90 | 4.49 | 0.053 |
+| original | 4.08 | 4.39 | 3.64 | 3.57 | 4.43 | 3.81 | 0.281 |
+| zero_shot | 4.87 | 4.94 | 4.57 | 4.02 | 4.99 | 4.77 | 0.087 |
+| optimized | 4.84 | 4.93 | 4.53 | 3.98 | 4.98 | 4.73 | 0.060 |
+| agentic_selected | 4.73 | 4.75 | 4.40 | 4.02 | 4.94 | 4.50 | 0.063 |
 
 Interpretation:
 
-Agentic v3 does not beat zero-shot on average LLM-judge overall quality. However, it narrows the gap, increases best-count wins, and achieves the lowest clickbait penalty. This is useful for a controllable selection system, but it should not be overclaimed as a better general generator.
+Agentic v3 does not beat zero-shot on average LLM-judge overall quality. However, it remains close to the strongest generator while keeping clickbait risk low and producing controllable candidate choices. This is useful for a selection system, but it should not be overclaimed as a better general generator.
 
 ## 9. Reward Misalignment
 
@@ -257,29 +257,29 @@ Local v3 evaluation slightly preferred agentic selection over zero-shot:
 
 | Comparison | Local Reward Delta | LLM Judge Delta |
 | --- | ---: | ---: |
-| agentic_selected - zero_shot | +0.021 | -0.220 |
+| agentic_selected - zero_shot | -0.006 | -0.270 |
 
-This means the local reward model and LLM judge disagree. The local critic often rewards concrete named entities or formal wording, but the judge may prefer headlines that preserve broader context.
+This means the local reward model and LLM judge still disagree in magnitude. The local critic treats agentic and zero-shot headlines as nearly tied, while the LLM judge prefers zero-shot by a larger margin. The local critic often rewards concrete named entities or formal wording, but the judge may prefer headlines that preserve broader context.
 
 Error case counts:
 
 | Case Type | Count | Rate |
 | --- | ---: | ---: |
-| tie_or_mixed | 42 | 0.420 |
-| zero_shot_beats_agentic | 22 | 0.220 |
-| local_reward_overestimates_agentic | 17 | 0.170 |
-| agentic_beats_zero_shot | 15 | 0.150 |
-| local_reward_underestimates_agentic | 4 | 0.040 |
+| tie_or_mixed | 53 | 0.530 |
+| zero_shot_beats_agentic | 20 | 0.200 |
+| local_reward_overestimates_agentic | 16 | 0.160 |
+| agentic_beats_zero_shot | 9 | 0.090 |
+| local_reward_underestimates_agentic | 2 | 0.020 |
 
 Dimensions where agentic loses to zero-shot:
 
 | Dimension | Loss Count |
 | --- | ---: |
-| Specificity | 29 |
-| Clarity | 28 |
-| Faithfulness | 22 |
-| Attractiveness | 19 |
-| Non-clickbait | 10 |
+| Specificity | 28 |
+| Clarity | 21 |
+| Attractiveness | 20 |
+| Faithfulness | 20 |
+| Non-clickbait | 5 |
 
 ### Example 1: Local Reward Overestimates Specific Names
 
@@ -317,9 +317,9 @@ Completed run:
 
 | Metric | Value |
 | --- | ---: |
-| Completed seed count | 90 |
+| Completed seed count | 100 |
 | Persona count | 4 |
-| Vote rows | 1,676 |
+| Vote rows | 1,816 |
 
 Personas:
 
@@ -332,9 +332,10 @@ Consensus best counts:
 
 | Variant | Consensus Best Count |
 | --- | ---: |
-| zero_shot | 49 |
-| original | 40 |
-| generic_sft | 1 |
+| zero_shot | 51 |
+| original | 46 |
+| generic_sft | 2 |
+| agentic_selected | 1 |
 
 Persona-specific pattern:
 
@@ -349,9 +350,9 @@ Persona disagreement:
 
 | Distinct Best Variants Per Seed | Seed Count |
 | --- | ---: |
-| 1 | 46 |
-| 2 | 43 |
-| 3 | 1 |
+| 1 | 55 |
+| 2 | 41 |
+| 3 | 4 |
 
 Interpretation:
 
@@ -389,10 +390,10 @@ Objective mean selected scores:
 
 | Objective | Mean Clickbait Penalty | Mean Faithfulness | Mean Specificity | Mean Attractiveness | Mean LLM Overall |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| editorial | 0.055 | 4.818 | 4.610 | 4.111 | 4.554 |
-| growth | 0.069 | 4.824 | 4.625 | 4.118 | 4.476 |
-| specificity | 0.065 | 4.822 | 4.620 | 4.113 | 4.333 |
-| trust_safety | 0.034 | 4.801 | 4.585 | 4.096 | 4.494 |
+| editorial | 0.043 | 4.833 | 4.641 | 4.128 | 4.575 |
+| growth | 0.054 | 4.837 | 4.651 | 4.132 | 4.543 |
+| specificity | 0.054 | 4.834 | 4.645 | 4.126 | 4.385 |
+| trust_safety | 0.023 | 4.817 | 4.616 | 4.112 | 4.539 |
 
 Interpretation:
 
@@ -418,8 +419,8 @@ Local critic vs LLM judge alignment:
 
 | Comparison | Mean LLM Overall Delta | Mean Local Final Delta |
 | --- | ---: | ---: |
-| specificity_sft - original | -0.370 | +0.727 |
-| generic_sft - original | -0.450 | +0.694 |
+| specificity_sft - original | -0.370 | +0.724 |
+| generic_sft - original | -0.450 | +0.721 |
 
 Interpretation:
 
@@ -535,7 +536,11 @@ Work to avoid:
 - Claims that local reward selection beats zero-shot generation in general.
 - Overstating the system as full RL or autonomous multi-agent reasoning.
 
-## 18. Report-Ready Summary
+## 18. Reproducibility Note
+
+The latest local rerun completed both the reward/post-training line and the SFT generator line. The aggregate conclusions match the earlier project narrative, but exact generated headlines and some scores differ from previous runs because OpenAI generation/judging and local SFT training are stochastic. The project should therefore claim reproducibility at the workflow, artifact, and aggregate-metric level rather than bit-for-bit identical generated text.
+
+## 19. Report-Ready Summary
 
 A concise version for the final report:
 

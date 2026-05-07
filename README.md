@@ -87,7 +87,7 @@ The SFT generator work is kept as an auxiliary candidate source. It is not the c
 
 - Multi-agent candidate matrix with 1,200 candidate actions over 100 fixed evaluation articles.
 - Objective-specific selectors for trust/safety, growth, editorial quality, and specificity.
-- Persona voting results over 90 evaluation articles.
+- Persona voting results over 100 evaluation articles.
 
 ## Key Findings So Far
 
@@ -129,25 +129,38 @@ Agentic v3 reduced clickbait risk and narrowed the LLM-judge gap to zero-shot:
 
 | Variant | LLM Judge Overall | Clickbait Penalty |
 | --- | ---: | ---: |
-| Zero-shot | 4.71 | 0.088 |
-| Optimized rewrite | 4.68 | 0.066 |
-| Agentic selected v3 | 4.49 | 0.053 |
+| Zero-shot | 4.77 | 0.087 |
+| Optimized rewrite | 4.73 | 0.060 |
+| Agentic selected v3 | 4.50 | 0.063 |
 
 Interpretation: the system improves controllability and lowers clickbait risk, but direct zero-shot remains the strongest average generator.
 
 ### Audience Persona Voting
 
-Persona voting was completed on 90 seed examples with 4 personas.
+Persona voting was completed on 100 seed examples with 4 personas.
 
 Consensus best counts:
 
 | Variant | Count |
 | --- | ---: |
-| Zero-shot | 49 |
-| Original human headline | 40 |
-| Generic SFT | 1 |
+| Zero-shot | 51 |
+| Original human headline | 46 |
+| Generic SFT | 2 |
+| Agentic selected | 1 |
 
 Interpretation: zero-shot and human headlines remain strong, but the voting layer gives a structured way to compare audience preferences before publication.
+
+### SFT Generator Baseline
+
+The SFT line was rerun with two local FLAN-T5-small generators. These models are useful as auxiliary candidate sources, but they are not the strongest headline generators in LLM-judge evaluation.
+
+| Variant | LLM Judge Overall | Local Final Score |
+| --- | ---: | ---: |
+| Original human headline | 4.23 | 3.989 |
+| Generic SFT | 3.78 | 4.711 |
+| Specificity-aware SFT | 3.86 | 4.713 |
+
+Interpretation: local critics score SFT outputs highly, but LLM judge still prefers original human headlines. This supports the reward-misalignment analysis and keeps SFT as a baseline rather than the project center.
 
 ## Repository Layout
 
@@ -157,6 +170,7 @@ data/processed/                  Processed datasets, judge outputs, reports, and
 docs/                            Project summary and structure notes
 scripts/                         Data processing, training, judging, scoring, and analysis scripts
 requirements-clickbait-bert.txt  Core dependencies used for critic training
+requirements-demo.txt            Gradio demo dependency
 ```
 
 Large model weights, checkpoints, raw data, and local virtual environments are intentionally excluded from Git.
@@ -169,10 +183,10 @@ This section is for teammates who want to clone the repository and reproduce the
 
 ```bash
 git clone https://github.com/Spi1er/Cricli.git
-cd Cricli/projects
+cd Cricli
 ```
 
-The project code lives under `projects/`.
+Run project commands from the repository root, `Cricli`.
 
 ### 2. Create The Python Environment
 
@@ -183,7 +197,7 @@ python -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
 pip install -r requirements-clickbait-bert.txt
-pip install tabulate
+pip install -r requirements-demo.txt
 ```
 
 Check the core packages:
@@ -208,6 +222,7 @@ The repository includes:
 - Dataset manifest in `data/docs/`.
 - Small processed CSV/JSON/JSONL/Markdown artifacts in `data/processed/`.
 - Current evaluation reports, judge labels, persona votes, and objective-selection matrices.
+- Static HTML demo and Gradio demo code.
 
 The repository does not include:
 
@@ -216,6 +231,7 @@ The repository does not include:
 - Raw MIND data under `data/raw/`.
 - Local virtual environments.
 - API keys.
+- Local single-article scratch outputs.
 
 This means teammates can immediately inspect the project results, but must retrain or restore local models before rerunning every scoring script end to end.
 
@@ -226,6 +242,7 @@ After installing dependencies, teammates can inspect the main outputs without re
 ```bash
 sed -n '1,180p' docs/WORK_SUMMARY.md
 sed -n '1,180p' docs/PROJECT_STRUCTURE.md
+sed -n '1,180p' docs/REPRODUCIBILITY_CHECKLIST.md
 sed -n '1,180p' data/processed/headline_multi_agent_objective_profile.md
 sed -n '1,180p' data/processed/headline_audience_persona_votes_profile.md
 sed -n '1,180p' data/processed/headline_quality_llm_judge_agentic_v3_specificity_profile.md
@@ -247,10 +264,11 @@ To rebuild the product-facing review-console demo from existing artifacts, run:
 python scripts/run_product_demo.py --limit-seeds 10 --python .venv/bin/python
 ```
 
-This builds a compact 10-article demo, refreshes the asset check, and renders the self-contained HTML output. The lower-level commands are still available when needed:
+This builds two demo surfaces from the same processed results: a compact 10-article static HTML fallback and a full 100-seed Gradio case explorer. It also refreshes the asset check and renders the self-contained HTML output. The lower-level commands are still available when needed:
 
 ```bash
 python scripts/build_headline_review_demo_cases.py --limit-seeds 10
+python scripts/build_headline_review_demo_cases.py --output data/processed/headline_review_demo_cases_full.csv --report data/processed/headline_review_demo_cases_full_profile.md --metadata data/processed/headline_review_demo_cases_full_metadata.json
 python scripts/build_headline_review_demo_html.py
 ```
 
@@ -335,6 +353,22 @@ Use `--device cpu` instead if MPS is unavailable.
 
 These scripts use the reward and pairwise examples in `data/processed/`.
 
+To train the latest v2 critics used by the current rerun:
+
+```bash
+python scripts/build_reward_training_v2.py
+
+python scripts/train_headline_quality_reward_critic.py \
+  --data data/processed/headline_quality_reward_model_examples_v2.jsonl \
+  --out models/headline_quality_reward_distilbert_v2 \
+  --device mps
+
+python scripts/train_headline_pairwise_reward_critic.py \
+  --data data/processed/headline_quality_pairwise_preferences_v2.jsonl \
+  --out models/headline_pairwise_reward_distilbert_v2 \
+  --device mps
+```
+
 ### 7. Optional API-Based Generation And Judging
 
 The API-based scripts require an OpenAI-compatible API key:
@@ -350,7 +384,8 @@ python scripts/run_zero_shot_headline_generation.py \
   --input data/processed/headline_generation_eval_seed_100.csv \
   --output data/processed/headline_generation_zero_shot_100.csv \
   --metadata data/processed/headline_generation_zero_shot_100_metadata.json \
-  --model gpt-4o-mini
+  --model gpt-4o-mini \
+  --overwrite-existing
 ```
 
 LLM-as-judge evaluation:
@@ -366,6 +401,8 @@ python scripts/run_llm_judge_agentic_comparison.py
 ```
 
 API calls cost money and can take time. Use `--dry-run` where available before launching a full run.
+
+Reproducibility note: OpenAI generation/judging and local SFT training are stochastic, so exact headline strings and rationales can differ across reruns. Cricli fixes the 100-example evaluation seed set and reports aggregate metrics, which preserve the main conclusions without requiring bit-for-bit identical outputs.
 
 ### 8. Reproduce The Current Selection Layer
 
@@ -391,31 +428,36 @@ data/processed/headline_audience_persona_votes_profile.md
 
 ### 9. Expected Reproduction Levels
 
-There are three practical levels of reproduction:
+There are four practical levels of reproduction:
 
 | Level | What To Run | Requires API? | Requires Training? |
 | --- | --- | ---: | ---: |
 | Read current results | Inspect `docs/` and `data/processed/*.md` | No | No |
 | Rebuild local critics | Dataset scripts + critic training | No | Yes |
 | Regenerate LLM outputs | Generation, judge, persona scripts | Yes | Optional |
+| Full raw-data rebuild | Restore `data/raw/`, rebuild processed data, retrain, regenerate API outputs | Yes | Yes |
 
-For most group review and report writing, Level 1 is enough. For model development, Level 2 is needed. For refreshing judge labels or persona votes, Level 3 is needed.
+For most group review and report writing, Level 1 is enough. For model development, Level 2 is needed. For refreshing judge labels or persona votes, Level 3 is needed. Level 4 is only needed when rebuilding everything from raw external datasets.
 
 ## Recommended Reading Order
 
 1. `docs/PROJECT_STRUCTURE.md`
 2. `docs/PROJECT_CODE_STRUCTURE.md`
-3. `docs/DEMO_DELIVERY_SCOPE.md`
-4. `docs/SIMPLIFIED_PRODUCT_WORKFLOW.md`
-5. `docs/TEAM_WORKPLAN.md`
-6. `docs/EVALUATION_REWARD_ANALYSIS.md`
-7. `docs/WORK_SUMMARY.md`
-8. `data/processed/headline_review_demo_profile.md`
-9. `data/processed/headline_multi_agent_objective_profile.md`
-10. `data/processed/headline_audience_persona_votes_profile.md`
-11. `data/processed/headline_persona_calibrated_objective_profile.md`
-12. `data/processed/headline_quality_llm_judge_agentic_v3_specificity_profile.md`
-13. `data/processed/headline_sft_judge_error_analysis.md`
+3. `docs/SETUP_NOTES.md`
+4. `docs/REPRODUCIBILITY_CHECKLIST.md`
+5. `docs/PRODUCT_DEMO_SCENARIOS.md`
+6. `docs/DEMO_DELIVERY_SCOPE.md`
+7. `docs/SIMPLIFIED_PRODUCT_WORKFLOW.md`
+8. `docs/TEAM_WORKPLAN.md`
+9. `docs/EVALUATION_REWARD_ANALYSIS.md`
+10. `docs/WORK_SUMMARY.md`
+11. `data/processed/headline_review_demo_profile.md`
+12. `data/processed/headline_multi_agent_objective_profile.md`
+13. `data/processed/headline_audience_persona_votes_profile.md`
+14. `data/processed/headline_persona_calibrated_objective_profile.md`
+15. `data/processed/headline_quality_llm_judge_agentic_v3_specificity_profile.md`
+16. `data/processed/bootstrap_significance.md`
+17. `data/processed/headline_sft_judge_error_analysis.md`
 
 ## Main Scripts
 
@@ -443,6 +485,7 @@ Evaluation and selection:
 - `scripts/build_headline_review_demo_html.py`
 - `scripts/check_project_assets.py`
 - `scripts/review_single_article.py`
+- `scripts/bootstrap_significance.py`
 - `scripts/run_audience_persona_voting.py`
 - `scripts/analyze_audience_persona_votes.py`
 
@@ -451,10 +494,12 @@ Auxiliary SFT generator experiments:
 - `scripts/build_headline_sft_dataset.py`
 - `scripts/train_headline_generator_sft.py`
 - `scripts/evaluate_sft_generators.py`
+- `scripts/run_llm_judge_sft_comparison.py`
+- `scripts/analyze_sft_judge_errors.py`
 
 ## Demo Direction
 
-The final demo is a lightweight headline review console built from a compact `data/processed/headline_review_demo_cases.csv`. The current local static version is generated at `demo/headline_review_console.html`:
+The final demo is a lightweight headline review console. The static fallback uses the compact `data/processed/headline_review_demo_cases.csv`, while the Gradio live demo uses the full `data/processed/headline_review_demo_cases_full.csv` when it is available. The current local static version is generated at `demo/headline_review_console.html`:
 
 ```text
 Select one article summary
@@ -464,7 +509,21 @@ Select one article summary
 -> show the persona-calibrated recommendation and why alternatives were not selected
 ```
 
-The demo should emphasize decision support, not raw generation quality. The full research candidate pool stays hidden behind the simplified demo dataset. Use `scripts/run_product_demo.py --limit-seeds 10` as the main demo rebuild command.
+The demo should emphasize decision support, not raw generation quality. The full research candidate pool stays hidden behind the simplified demo datasets. Use `scripts/run_product_demo.py --limit-seeds 10` as the main demo rebuild command. The `--limit-seeds 10` setting controls only the compact static HTML fallback; the Gradio case explorer is rebuilt from all 100 fixed article seeds.
+
+For the live AI-style demo, run the Gradio app:
+
+```bash
+python demo/gradio_app.py
+```
+
+The Gradio demo exposes five presentation scenarios, a 100-seed saved case explorer, candidate source pool summaries, candidate-level clickbait penalty, quality/risk/audience/objective scores, persona votes, and final recommendation explanations.
+
+If port 7860 is busy:
+
+```bash
+python demo/gradio_app.py --port 7861
+```
 
 For a real single-article use case, run:
 

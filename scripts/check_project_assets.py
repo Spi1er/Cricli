@@ -19,6 +19,7 @@ REQUIRED_PROCESSED = [
     "data/processed/headline_persona_calibrated_candidate_matrix.csv",
     "data/processed/headline_persona_calibrated_objective_selection.csv",
     "data/processed/headline_review_demo_cases.csv",
+    "data/processed/headline_review_demo_cases_full.csv",
 ]
 REQUIRED_RAW = [
     "data/raw/clickbait/marksverdhei_clickbait_title_classification/clickbait_title_classification.csv",

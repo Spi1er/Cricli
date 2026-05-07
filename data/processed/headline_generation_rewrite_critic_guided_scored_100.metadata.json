@@ -7,10 +7,10 @@
   "target_rows": 9,
   "threshold": 0.5,
   "target_zero_shot_mean_penalty": 0.9586569244444445,
-  "target_rewritten_mean_penalty": 0.8213470578193665,
-  "target_mean_delta_vs_zero_shot": -0.13730981196161687,
-  "target_below_threshold_rate": 0.2222222222222222,
-  "final_mean_penalty": 0.07551401439022448,
-  "final_clickbait_rate": 0.07,
-  "device": "cpu"
+  "target_rewritten_mean_penalty": 0.8865205645561218,
+  "target_mean_delta_vs_zero_shot": -0.07213636428623478,
+  "target_below_threshold_rate": 0.1111111111111111,
+  "final_mean_penalty": 0.08137962468100886,
+  "final_clickbait_rate": 0.08,
+  "device": "mps"
 }

@@ -6,11 +6,11 @@
   "output_selection": "data/processed/headline_persona_calibrated_objective_selection.csv",
   "report": "data/processed/headline_persona_calibrated_objective_profile.md",
   "calibration_strength": 0.5,
-  "rows": 1200,
+  "rows": 1000,
   "seed_count": 100,
   "selection_rows": 400,
-  "rows_with_persona_signal": 419,
-  "seeds_with_persona_signal": 90,
+  "rows_with_persona_signal": 454,
+  "seeds_with_persona_signal": 100,
   "calibration_config": {
     "trust_safety": {
       "base_score": "objective_trust_safety_score",
@@ -57,26 +57,26 @@
     {
       "objective": "editorial",
       "seeds": 100,
-      "changed_count": 56,
-      "changed_rate": 0.56
+      "changed_count": 64,
+      "changed_rate": 0.64
     },
     {
       "objective": "growth",
       "seeds": 100,
-      "changed_count": 60,
-      "changed_rate": 0.6
+      "changed_count": 63,
+      "changed_rate": 0.63
     },
     {
       "objective": "specificity",
       "seeds": 100,
-      "changed_count": 62,
-      "changed_rate": 0.62
+      "changed_count": 63,
+      "changed_rate": 0.63
     },
     {
       "objective": "trust_safety",
       "seeds": 100,
-      "changed_count": 51,
-      "changed_rate": 0.51
+      "changed_count": 65,
+      "changed_rate": 0.65
     }
   ]
 }

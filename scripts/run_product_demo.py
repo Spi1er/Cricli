@@ -4,8 +4,9 @@
 This is the clean demo entrypoint for teammates and project review:
 
 1. Check local assets and dependency state.
-2. Build a small product-facing headline review dataset.
-3. Render the English static demo.
+2. Build a compact product-facing headline review dataset for the static HTML fallback.
+3. Build a full 100-seed case explorer dataset for the Gradio live demo.
+4. Render the English static demo.
 The research scripts remain available, but this command is the recommended
 surface for report/demo preparation.
 """
@@ -59,13 +60,27 @@ def main() -> None:
             "--limit-seeds",
             str(args.limit_seeds),
         ],
-        "Build simplified demo cases",
+        "Build compact HTML demo cases",
+    )
+    run_step(
+        [
+            python,
+            "scripts/build_headline_review_demo_cases.py",
+            "--output",
+            "data/processed/headline_review_demo_cases_full.csv",
+            "--report",
+            "data/processed/headline_review_demo_cases_full_profile.md",
+            "--metadata",
+            "data/processed/headline_review_demo_cases_full_metadata.json",
+        ],
+        "Build full Gradio case explorer",
     )
     run_step([python, "scripts/build_headline_review_demo_html.py"], "Build HTML demo")
 
     print("\nDemo build complete.", flush=True)
     print(f"- Demo: {rel(PROJECT_ROOT / 'demo' / 'headline_review_console.html')}")
-    print(f"- Cases: {rel(PROJECT_ROOT / 'data' / 'processed' / 'headline_review_demo_cases.csv')}")
+    print(f"- Compact cases: {rel(PROJECT_ROOT / 'data' / 'processed' / 'headline_review_demo_cases.csv')}")
+    print(f"- Full Gradio cases: {rel(PROJECT_ROOT / 'data' / 'processed' / 'headline_review_demo_cases_full.csv')}")
 
 
 if __name__ == "__main__":

@@ -1,16 +1,16 @@
 # Project Code Structure And Local Assets
 
-This document describes the current Cricli local project structure after path cleanup and model restoration.
+This document describes the current Cricli local project structure after path cleanup, model retraining, SFT rerun, and demo updates.
 
 ## Canonical Project Root
 
 Always run project commands from:
 
 ```text
-Cricli/projects
+Cricli
 ```
 
-The earlier folder name `Circli` was a typo. Current scripts derive paths from their own file location with `PROJECT_ROOT = Path(__file__).resolve().parents[1]`, so they should work from different current working directories, but using `Cricli/projects` keeps commands and outputs easiest to read.
+Current scripts derive paths from their own file location with `PROJECT_ROOT = Path(__file__).resolve().parents[1]`, so they should work from different current working directories, but using `Cricli` keeps commands and outputs easiest to read.
 
 ## Main Directories
 
@@ -32,6 +32,8 @@ models/base/distilbert-base-uncased-seqcls
 models/clickbait_penalty_distilbert
 models/headline_quality_reward_distilbert
 models/headline_pairwise_reward_distilbert
+models/headline_quality_reward_distilbert_v2
+models/headline_pairwise_reward_distilbert_v2
 models/headline_generator_flan_t5_small_generic_sft
 models/headline_generator_flan_t5_small_specificity_sft
 ```
@@ -48,9 +50,13 @@ Current restored local critic models:
 models/clickbait_penalty_distilbert
 models/headline_quality_reward_distilbert
 models/headline_pairwise_reward_distilbert
+models/headline_quality_reward_distilbert_v2
+models/headline_pairwise_reward_distilbert_v2
+models/headline_generator_flan_t5_small_generic_sft
+models/headline_generator_flan_t5_small_specificity_sft
 ```
 
-The clickbait critic is used by the single-article demo. The quality and pairwise reward critics support the older reward-guided/reranking experiments. The SFT generator checkpoints are still auxiliary and are not required for the simplified product demo.
+The clickbait critic is used by the single-article and Gradio demos. The quality and pairwise reward critics support reward-guided reranking and objective selection. The SFT generator checkpoints are auxiliary candidate-source models; they are useful for evaluation and report evidence, but they are not the core product claim.
 
 ## Path And Output Rules
 
@@ -61,6 +67,12 @@ The clickbait critic is used by the single-article demo. The quality and pairwis
   - default output CSV: `data/processed/single_article_review_candidates.csv`
   - default output HTML: `demo/single_article_review.html`
   - default output metadata: `data/processed/single_article_review_metadata.json`
+- Gradio review demo:
+  - app: `demo/gradio_app.py`
+  - preferred input: `data/processed/headline_review_demo_cases_full.csv`
+  - fallback input: `data/processed/headline_review_demo_cases.csv`
+  - default URL: `http://127.0.0.1:7860/`
+  - fallback port command: `python demo/gradio_app.py --port 7861`
 - Use `--run-name` for single-article experiments to avoid overwriting previous outputs.
 - Use `--objective all` to generate all four objective-specific recommendations in one run.
 
@@ -86,6 +98,8 @@ base_distilbert_seqcls: OK, load_ready=True
 clickbait_penalty_distilbert: OK, load_ready=True
 headline_quality_reward_distilbert: OK, load_ready=True
 headline_pairwise_reward_distilbert: OK, load_ready=True
+headline_generator_generic_sft: OK, load_ready=True
+headline_generator_specificity_sft: OK, load_ready=True
 ```
 
 If `OPENAI_API_KEY` is not set, API generation, LLM judging, and persona voting will be unavailable. Local dry-run demos and local critic scoring can still run.
@@ -95,7 +109,7 @@ If `OPENAI_API_KEY` is not set, API generation, LLM judging, and persona voting 
 The current product-facing demo has been simplified around `scripts/run_product_demo.py`. The remaining project direction should stay business-facing:
 
 1. Keep the simplified review-console path as the main product surface.
-2. Use the compact 10-article demo as the default presentation surface.
+2. Use the compact 10-article HTML demo as the stable fallback and the full 100-seed Gradio explorer for live interaction.
 3. Show a compact explanation for why the recommended headline wins under each objective.
 4. Treat clickbait as one part of a fused risk/safety score, not as a separate product claim.
-5. Keep the older agentic/reward/SFT scripts as research background, not the main demo narrative.
+5. Keep the agentic/reward/SFT scripts as research evidence behind the review console, not as the main demo interface.
