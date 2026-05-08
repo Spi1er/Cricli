@@ -518,6 +518,7 @@ body > gradio-app,
 .cricli-html-sidebar > .form,
 .cricli-html-sidebar .block {
   background: transparent !important;
+  flex: 0 0 auto !important;
 }
 .cricli-html-main {
   background: #f6f5ef;
@@ -525,16 +526,17 @@ body > gradio-app,
   min-height: 100vh;
 }
 .cricli-html-brand-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  display: block;
+  margin-left: -8px;
+  width: calc(100% + 8px);
+  margin-bottom: 14px;
 }
 .cricli-html-brand-title {
-  color: #18212f;
-  font-size: 19px;
-  font-weight: 760;
-  line-height: 1.08;
+  color: #12756d;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.1;
+  white-space: nowrap;
 }
 .cricli-html-brand-pill,
 .cricli-html-chip {
@@ -545,6 +547,9 @@ body > gradio-app,
   font-size: 0.74rem;
   padding: 4px 7px;
   white-space: nowrap;
+}
+.cricli-html-brand-pill {
+  display: inline-flex;
 }
 .cricli-html-stats {
   display: grid;
@@ -576,6 +581,113 @@ body > gradio-app,
   background: #f9faf5 !important;
   padding: 10px;
 }
+.cricli-html-entry-panel {
+  border: 1px solid #d9decc !important;
+  border-radius: 8px;
+  background: #fbfcf9 !important;
+  flex: 0 0 auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 10px !important;
+}
+.cricli-html-entry-panel > div,
+.cricli-html-entry-panel .form,
+.cricli-html-entry-panel .block,
+.cricli-html-entry-panel .panel,
+.cricli-entry-mode-panel,
+.cricli-entry-mode-panel > div,
+.cricli-entry-mode-panel .form,
+.cricli-entry-mode-panel .block {
+  background: #fbfcf9 !important;
+  border: 0 !important;
+  flex: 0 0 auto !important;
+  box-shadow: none !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.cricli-html-entry-panel input,
+.cricli-html-entry-panel select,
+.cricli-html-entry-panel textarea,
+.cricli-html-entry-panel .input-container,
+.cricli-html-entry-panel .cricli-html-stat {
+  background: #ffffff !important;
+}
+.cricli-entry-radio {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 0 12px !important;
+}
+.cricli-entry-radio,
+.cricli-entry-radio .wrap,
+.cricli-entry-radio .block,
+.cricli-entry-radio .form {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+.cricli-entry-radio .wrap {
+  align-items: flex-end !important;
+  border-bottom: 1px solid #d9decc !important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 12px !important;
+}
+.cricli-entry-radio label {
+  align-items: center !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 2px solid transparent !important;
+  border-radius: 0 !important;
+  color: #465266 !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  font-size: 0.76rem !important;
+  font-weight: 700 !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  min-height: 28px !important;
+  padding: 0 0 7px !important;
+  text-align: center !important;
+  width: auto !important;
+}
+.cricli-entry-radio label span {
+  color: #465266 !important;
+  font-size: 0.74rem !important;
+  font-weight: 700 !important;
+  text-transform: none !important;
+  white-space: nowrap !important;
+}
+.cricli-entry-radio input[type="radio"] {
+  display: none !important;
+}
+.cricli-entry-radio label:has(input[type="radio"]:checked) {
+  background: transparent !important;
+  border-bottom-color: #12756d !important;
+}
+.cricli-entry-radio label:has(input[type="radio"]:checked) span {
+  color: #12756d !important;
+}
+.cricli-entry-mode-panel input,
+.cricli-entry-mode-panel select,
+.cricli-entry-mode-panel textarea,
+.cricli-entry-mode-panel .wrap,
+.cricli-entry-mode-panel .input-container {
+  background: #ffffff !important;
+  border-color: #d9decc !important;
+  min-height: 0 !important;
+}
+.cricli-html-entry-panel .cricli-html-stats {
+  gap: 7px;
+}
+.cricli-html-entry-panel .cricli-html-stat {
+  min-width: 0;
+  padding: 8px;
+}
 .cricli-html-scenario-panel,
 .cricli-html-scenario-panel *,
 .cricli-html-scenario-panel > div,
@@ -587,6 +699,58 @@ body > gradio-app,
 .cricli-html-scenario-panel .wrap,
 .cricli-html-scenario-panel .input-container {
   background-color: #ffffff !important;
+}
+.cricli-html-scenario-panel button,
+.cricli-html-scenario-panel button.secondary {
+  background: #ffffff !important;
+  border: 1px solid #d9decc !important;
+  color: #18212f !important;
+  font-weight: 700 !important;
+  opacity: 1 !important;
+}
+.cricli-html-scenario-panel button.primary {
+  background: #12756d !important;
+  border: 1px solid #12756d !important;
+  color: #ffffff !important;
+  font-weight: 760 !important;
+  opacity: 1 !important;
+}
+.cricli-html-scenario-panel button.primary:hover {
+  background: #0f6a62 !important;
+}
+.cricli-live-help {
+  color: #53627a;
+  font-size: 12px;
+  line-height: 1.35;
+  margin: 4px 0 8px;
+}
+.cricli-live-status {
+  color: #53627a;
+  font-size: 12px;
+  line-height: 1.35;
+  margin: 6px 0 0;
+}
+.cricli-live-actions {
+  display: grid;
+  gap: 8px;
+}
+.cricli-api-status {
+  border: 1px solid #d9decc;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #53627a;
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.25;
+  padding: 8px 10px;
+}
+.cricli-api-status.enabled {
+  border-color: #9dd1c8;
+  background: #eef8f5;
+  color: #12756d;
+}
+.cricli-api-status.fallback {
+  color: #7a5a20;
 }
 .cricli-html-current-card {
   background: #ffffff !important;
@@ -613,11 +777,18 @@ body > gradio-app,
   line-height: 1.35;
   margin: 0;
 }
+.cricli-html-product-title {
+  color: #12756d;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0 0 7px;
+}
 .cricli-html-page-title {
   color: #18212f;
-  font-size: clamp(25px, 3vw, 38px);
+  font-size: clamp(20px, 2.1vw, 28px);
   line-height: 1.04;
-  margin: 0 0 14px;
+  margin: 0 0 10px;
 }
 .cricli-html-scenario-banner {
   border: 1px solid #c7d2fe;
@@ -640,8 +811,8 @@ body > gradio-app,
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 8px;
-  margin: 16px 0;
+  gap: 7px;
+  margin: 13px 0;
 }
 .cricli-html-objective-tab {
   border: 1px solid #d9decc;
@@ -649,7 +820,7 @@ body > gradio-app,
   background: #ffffff;
   color: #2b3444;
   font-weight: 650;
-  padding: 9px 12px;
+  padding: 7px 10px;
 }
 .cricli-html-objective-tab.active {
   background: #18212f;
@@ -657,7 +828,7 @@ body > gradio-app,
   color: #ffffff;
 }
 .cricli-objective-radio {
-  margin: 16px 0 !important;
+  margin: 11px 0 15px 10px !important;
 }
 .cricli-objective-radio,
 .cricli-objective-radio .wrap,
@@ -671,7 +842,9 @@ body > gradio-app,
 .cricli-objective-radio .wrap {
   display: flex !important;
   flex-wrap: wrap !important;
-  gap: 8px !important;
+  gap: 6px !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
 }
 .cricli-objective-radio label {
   align-items: center !important;
@@ -683,13 +856,13 @@ body > gradio-app,
   display: inline-flex !important;
   font-weight: 650 !important;
   margin: 0 !important;
-  min-height: 38px !important;
-  padding: 9px 12px !important;
+  min-height: 32px !important;
+  padding: 6px 9px !important;
   width: auto !important;
 }
 .cricli-objective-radio label span {
   color: #2b3444 !important;
-  font-size: 0.95rem !important;
+  font-size: 0.82rem !important;
   font-weight: 650 !important;
   text-transform: none !important;
 }
@@ -1696,7 +1869,12 @@ def selected_rows(df: pd.DataFrame, seed_id: int, objective: str) -> pd.DataFram
 
 def console_header_html(df: pd.DataFrame, article_choice: str | None, objective_label: str, scenario_name: str | None) -> str:
     if not article_choice:
-        return '<div class="cricli-table-empty">No article selected.</div>'
+        return (
+            '<div class="cricli-html-review">'
+            '<div class="cricli-html-product-title">Headline Review &amp; Selection Console</div>'
+            '<div class="cricli-table-empty">Select a saved case or live article URL to start.</div>'
+            "</div>"
+        )
     seed_id = seed_from_choice(article_choice)
     objective = objective_key(objective_label)
     rows = selected_rows(df, seed_id, objective)
@@ -1705,6 +1883,7 @@ def console_header_html(df: pd.DataFrame, article_choice: str | None, objective_
 
     return (
         '<div class="cricli-html-review">'
+        '<div class="cricli-html-product-title">Headline Review &amp; Selection Console</div>'
         f'<h1 class="cricli-html-page-title">{html.escape(OBJECTIVE_LABELS[objective])} recommendation</h1>'
         f"{scenario_banner_html(scenario_name, seed_id, objective)}"
         "</div>"
@@ -1713,7 +1892,7 @@ def console_header_html(df: pd.DataFrame, article_choice: str | None, objective_
 
 def console_body_html(df: pd.DataFrame, article_choice: str | None, objective_label: str, scenario_name: str | None) -> str:
     if not article_choice:
-        return '<div class="cricli-table-empty">No article selected.</div>'
+        return '<div class="cricli-table-empty">No recommendation yet. Choose an article entry on the left to review candidate headlines.</div>'
     seed_id = seed_from_choice(article_choice)
     objective = objective_key(objective_label)
     rows = selected_rows(df, seed_id, objective)
@@ -1778,6 +1957,140 @@ def console_side_outputs(
     )
 
 
+def live_sidebar_article_html(summary: str, title: str, category: str, url: str) -> str:
+    summary = clean_text(summary)
+    title = clean_text(title) or "Live article review"
+    category = clean_text(category) or "news"
+    url = clean_text(url)
+    snippet = summary[:430] + (" ..." if len(summary) > 430 else "")
+    source = urlparse(url if "://" in url else f"https://{url}").netloc.replace("www.", "") if url else "live URL"
+    return (
+        '<div class="cricli-html-current-card live">'
+        '<div class="cricli-html-article-top">'
+        f'<span class="cricli-html-category">{html.escape(category.upper())}</span>'
+        '<span class="cricli-html-seed">live</span>'
+        "</div>"
+        f'<div class="cricli-card-title">{html.escape(title)}</div>'
+        f'<p class="cricli-html-snippet">{html.escape(snippet)}</p>'
+        f'<div class="cricli-chip-row"><span class="cricli-chip">{html.escape(source)}</span></div>'
+        "</div>"
+    )
+
+
+def custom_recommendation_card_html(candidates: pd.DataFrame, heading: str = "Recommended Headline") -> str:
+    if candidates is None or candidates.empty:
+        return table_html(pd.DataFrame())
+    rows = candidates.copy()
+    recommended_rows = rows[rows.get("Role", pd.Series(dtype=str)).astype(str).str.lower().eq("recommended")]
+    row = recommended_rows.iloc[0] if not recommended_rows.empty else rows.iloc[0]
+    explanation = clean_text(row.get("Explanation", ""))
+    cards = "".join(
+        [
+            score_box_html("Quality", row.get("Quality")),
+            score_box_html("Risk safety", row.get("Risk/Safety"), "risk"),
+            score_box_html("Audience fit", row.get("Audience"), "audience"),
+            score_box_html("Objective fit", row.get("Objective Fit"), "objective"),
+        ]
+    )
+    return (
+        '<div class="cricli-rec-card">'
+        f'<div class="cricli-rec-eyebrow">{html.escape(heading)}</div>'
+        f'<div class="cricli-rec-title">{html.escape(clean_text(row.get("Headline")))}</div>'
+        f'<div class="cricli-rec-reason">{html.escape(explanation)}</div>'
+        f'<div class="cricli-score-grid">{cards}</div>'
+        "</div>"
+    )
+
+
+def custom_source_pool_cards_html(candidates: pd.DataFrame) -> str:
+    if candidates is None or candidates.empty:
+        return table_html(pd.DataFrame(), "Run a live or custom review to see candidate sources.")
+    rows = []
+    for source, group in candidates.groupby("Source", dropna=False):
+        roles = sorted({clean_text(value) for value in group.get("Role", pd.Series(dtype=str)).dropna()})
+        rows.append(
+            {
+                "Candidate Source": clean_text(source),
+                "Visible Roles": ", ".join(roles),
+                "Candidate Count": int(len(group)),
+            }
+        )
+    cards = []
+    for row in rows:
+        cards.append(
+            '<div class="cricli-source-card">'
+            f'<div class="cricli-card-top"><b>{html.escape(row["Candidate Source"])}</b><span>{row["Candidate Count"]}</span></div>'
+            '<div class="cricli-card-note">Generated for the live/custom review run.</div>'
+            f'<div class="cricli-chip-row"><span class="cricli-chip">{html.escape(row["Visible Roles"])}</span></div>'
+            "</div>"
+        )
+    return '<div class="cricli-source-grid">' + "".join(cards) + "</div>"
+
+
+def live_header_html(objective_label: str, status: str) -> str:
+    objective = objective_key(objective_label)
+    return (
+        '<div class="cricli-html-review">'
+        '<div class="cricli-html-product-title">Headline Review &amp; Selection Console</div>'
+        f'<h1 class="cricli-html-page-title">Live URL {html.escape(OBJECTIVE_LABELS[objective])} recommendation</h1>'
+        '<div class="cricli-html-scenario-banner live">'
+        "<b>Live Article URL Review</b>"
+        f"<span>{html.escape(clean_text(status) or 'Fetch an article URL, then review it with the selected business objective.')}</span>"
+        "</div>"
+        "</div>"
+    )
+
+
+def live_body_html(
+    summary: str,
+    title: str,
+    category: str,
+    objective_label: str,
+    candidates: pd.DataFrame,
+    metadata: dict[str, Any],
+) -> str:
+    summary = clean_text(summary)
+    title = clean_text(title) or "Live article"
+    category = clean_text(category).upper() or "NEWS"
+    candidate_count = int(metadata.get("candidate_count", len(candidates) if candidates is not None else 0))
+    generation_mode = clean_text(metadata.get("generation_mode", "fallback"))
+    model = clean_text(metadata.get("model", "fallback"))
+    return (
+        '<div class="cricli-html-article-context">'
+        "<div>"
+        f'<div class="cricli-section-label">{html.escape(category)} LIVE ARTICLE</div>'
+        f'<div class="cricli-live-title">{html.escape(title)}</div>'
+        f'<p class="cricli-html-summary-text">{html.escape(summary)}</p>'
+        "</div>"
+        '<div class="cricli-html-metric-stack">'
+        f'<div class="cricli-html-metric"><span>Generated candidates</span><b>{candidate_count}</b></div>'
+        f'<div class="cricli-html-metric"><span>Generation mode</span><b>{html.escape(generation_mode)}</b></div>'
+        "</div>"
+        "</div>"
+        f"{custom_recommendation_card_html(candidates)}"
+        '<div class="cricli-html-section">Visible Decision Set</div>'
+        f"{candidate_cards_html(candidates)}"
+        f'<div class="cricli-chip-row"><span class="cricli-chip">Objective: {html.escape(objective_label)}</span>'
+        f'<span class="cricli-chip">Model: {html.escape(model)}</span></div>'
+    )
+
+
+def live_empty_persona_html() -> str:
+    return (
+        '<div class="cricli-table-empty">'
+        "Persona vote tables are available for saved evaluation cases. "
+        "Live URL review uses local scoring and objective selection for the fetched article."
+        "</div>"
+    )
+
+
+def live_status_html(status: str) -> str:
+    status = clean_text(status)
+    if not status:
+        return ""
+    return f'<p class="cricli-live-status">{html.escape(status)}</p>'
+
+
 def build_app():
     gr = import_gradio()
     cases = load_demo_cases()
@@ -1785,13 +2098,9 @@ def build_app():
     choices = article_choices(cases)
     objective_labels = [OBJECTIVE_LABELS[key] for key in OBJECTIVE_ORDER]
     scenario_choices = list(SCENARIOS)
-    default_scenario_name = (
-        "Trust / Safety Prefers Conservative Editorial"
-        if "Trust / Safety Prefers Conservative Editorial" in SCENARIOS
-        else scenario_choices[0]
-    )
-    default_article_choice = article_choice_for_seed(cases, SCENARIOS[default_scenario_name]["seed_id"]) or (choices[0] if choices else None)
-    default_objective_label = OBJECTIVE_LABELS[SCENARIOS[default_scenario_name]["objective"]]
+    default_scenario_name = None
+    default_article_choice = None
+    default_objective_label = OBJECTIVE_LABELS["trust_safety"]
     default_sidebar, default_header, default_body, default_sources, default_personas = console_side_outputs(
         cases,
         persona_df,
@@ -1799,6 +2108,7 @@ def build_app():
         default_objective_label,
         default_scenario_name,
     )
+    api_key_available = bool(os.environ.get("OPENAI_API_KEY"))
 
     def visible_row_count(filtered_choices: list[str]) -> int:
         if not filtered_choices:
@@ -1811,12 +2121,12 @@ def build_app():
         current_article: str | None,
         current_objective: str,
         current_scenario: str,
-    ) -> tuple[object, str, str, str, str, str, str]:
+    ) -> tuple[object, str, str, str, str, str, str, str]:
         query = clean_text(query).lower()
         filtered = [choice for choice in choices if query in choice.lower()] if query else choices
         if not filtered:
             filtered = choices
-        value = current_article if current_article in filtered else (filtered[0] if filtered else None)
+        value = current_article if current_article in filtered else None
         sidebar, header, body, sources, personas = console_side_outputs(
             cases,
             persona_df,
@@ -1826,6 +2136,7 @@ def build_app():
         )
         return (
             gr.update(choices=filtered, value=value),
+            "saved",
             sidebar_stats_html(cases, visible_row_count(filtered)),
             sidebar,
             header,
@@ -1838,20 +2149,41 @@ def build_app():
         current_article: str | None,
         current_objective: str,
         current_scenario: str,
-    ) -> tuple[str, str, str, str, str]:
-        return console_side_outputs(
+    ) -> tuple[str, str, str, str, str, str]:
+        if not current_article and current_scenario in SCENARIOS:
+            current_article = article_choice_for_seed(cases, SCENARIOS[current_scenario]["seed_id"])
+        sidebar, header, body, sources, personas = console_side_outputs(
             cases,
             persona_df,
             current_article,
             current_objective,
             current_scenario,
         )
+        return "saved", sidebar, header, body, sources, personas
 
     def sync_objective_console(
         current_article: str | None,
         current_objective: str,
         current_scenario: str,
+        active_mode: str,
+        live_summary: str,
+        live_title: str,
+        live_category: str,
+        live_url: str,
+        live_use_api: bool,
     ) -> tuple[str, str, str, str, str, str]:
+        if active_mode == "live" and clean_text(live_summary):
+            return render_live_review_console(
+                live_summary,
+                live_title,
+                live_category,
+                live_url,
+                current_objective,
+                live_use_api,
+                "Live article objective changed.",
+            )
+        if not current_article and current_scenario in SCENARIOS:
+            current_article = article_choice_for_seed(cases, SCENARIOS[current_scenario]["seed_id"])
         sidebar, header, body, sources, personas = console_side_outputs(
             cases,
             persona_df,
@@ -1861,7 +2193,28 @@ def build_app():
         )
         return current_objective, sidebar, header, body, sources, personas
 
-    def load_scenario_console(name: str) -> tuple[object, str, str, str, str, str, str, str, str]:
+    def load_scenario_console(name: str | None) -> tuple[object, str, str, str, str, str, str, str, str, str, str]:
+        if not name or name not in SCENARIOS:
+            sidebar, header, body, sources, personas = console_side_outputs(
+                cases,
+                persona_df,
+                None,
+                default_objective_label,
+                None,
+            )
+            return (
+                gr.update(choices=choices, value=None),
+                "saved",
+                default_objective_label,
+                default_objective_label,
+                "",
+                sidebar_stats_html(cases),
+                sidebar,
+                header,
+                body,
+                sources,
+                personas,
+            )
         scenario_config = SCENARIOS[name]
         article_value = article_choice_for_seed(cases, scenario_config["seed_id"]) or default_article_choice
         objective_value = OBJECTIVE_LABELS[scenario_config["objective"]]
@@ -1874,6 +2227,7 @@ def build_app():
         )
         return (
             gr.update(choices=choices, value=article_value),
+            "saved",
             objective_value,
             objective_value,
             "",
@@ -1885,46 +2239,161 @@ def build_app():
             personas,
         )
 
+    def render_live_review_console(
+        summary: str,
+        title: str,
+        category: str,
+        url: str,
+        objective_label: str,
+        use_api_when_available: bool,
+        status: str,
+    ) -> tuple[str, str, str, str, str, str]:
+        recommendation, scores, candidates, metadata = review_custom_summary(
+            summary,
+            category,
+            title,
+            objective_label,
+            6,
+            use_api_when_available,
+        )
+        metadata = {**metadata, "source_url": clean_text(url), "fetch_status": status}
+        sidebar = live_sidebar_article_html(summary, title, category, url)
+        header = live_header_html(objective_label, status)
+        body = live_body_html(summary, title, category, objective_label, candidates, metadata)
+        sources = custom_source_pool_cards_html(candidates)
+        personas = live_empty_persona_html()
+        return objective_label, sidebar, header, body, sources, personas
+
+    def fetch_live_article_sidebar(
+        url: str,
+        current_category: str,
+    ) -> tuple[str, str, str, str, str, str, str]:
+        summary, title, category_value, fetch_status = fetch_article_url_ui(url, "", "", current_category)
+        if fetch_status.startswith("Fetch failed") or fetch_status.startswith("Enter a URL"):
+            return "", "", current_category, clean_text(url), live_status_html(fetch_status), "saved", sidebar_article_html(cases, seed_from_choice(default_article_choice) if default_article_choice else None)
+        sidebar = live_sidebar_article_html(summary, title, category_value, url)
+        return summary, title, category_value, clean_text(url), live_status_html(fetch_status), "live_fetched", sidebar
+
+    def fetch_and_review_live_sidebar(
+        url: str,
+        current_category: str,
+        objective_label: str,
+        use_api_when_available: bool,
+    ) -> tuple[str, str, str, str, str, str, str, str, str, str, str, str, str]:
+        summary, title, category_value, fetch_status = fetch_article_url_ui(url, "", "", current_category)
+        if fetch_status.startswith("Fetch failed") or fetch_status.startswith("Enter a URL"):
+            empty = table_html(pd.DataFrame())
+            return (
+                "",
+                "",
+                current_category,
+                clean_text(url),
+                live_status_html(fetch_status),
+                "saved",
+                objective_label,
+                objective_label,
+                sidebar_article_html(cases, seed_from_choice(default_article_choice) if default_article_choice else None),
+                live_header_html(objective_label, fetch_status),
+                empty,
+                empty,
+                live_empty_persona_html(),
+            )
+        objective_value, sidebar, header, body, sources, personas = render_live_review_console(
+            summary,
+            title,
+            category_value,
+            url,
+            objective_label,
+            use_api_when_available,
+            fetch_status,
+        )
+        return (
+            summary,
+            title,
+            category_value,
+            clean_text(url),
+            live_status_html(fetch_status),
+            "live",
+            objective_value,
+            objective_value,
+            sidebar,
+            header,
+            body,
+            sources,
+            personas,
+        )
+
+    def switch_entry_mode(entry_mode: str) -> tuple[object, object]:
+        return (
+            gr.update(visible=entry_mode == "Cases"),
+            gr.update(visible=entry_mode == "Live URL"),
+        )
+
     with gr.Blocks(title="Cricli Headline Review Console") as app:
+        active_mode = gr.State("saved")
+        live_summary_state = gr.State("")
+        live_title_state = gr.State("")
+        live_category_state = gr.State("news")
+        live_url_state = gr.State("")
+        scenario = gr.State(None)
         with gr.Row(elem_classes=["cricli-html-shell"]):
             with gr.Column(scale=1, min_width=320, elem_classes=["cricli-html-sidebar"]):
                 gr.HTML(
                     """
                     <div class="cricli-html-brand-row">
-                      <div class="cricli-html-brand-title">Headline Review<br>Console</div>
-                      <div class="cricli-html-brand-pill">Local demo</div>
+                      <div class="cricli-html-brand-title">CriCli Live Demo</div>
                     </div>
                     """
                 )
-                article = gr.Dropdown(
-                    choices=choices,
-                    value=default_article_choice,
-                    label="Select Article or Headline",
-                    elem_classes=["cricli-field"],
-                )
-                filter_text = gr.Textbox(
-                    placeholder="Filter article cards",
-                    show_label=False,
-                    elem_classes=["cricli-field"],
-                )
-                stats = gr.HTML(value=sidebar_stats_html(cases))
-                with gr.Group(elem_classes=["cricli-html-scenario-panel"]):
-                    scenario = gr.Dropdown(
-                        choices=scenario_choices,
-                        value=default_scenario_name,
-                        label="Presentation Scenarios",
-                        elem_classes=["cricli-field"],
+                with gr.Column(elem_classes=["cricli-html-entry-panel"]):
+                    entry_mode = gr.Radio(
+                        choices=["Cases", "Live URL"],
+                        value="Cases",
+                        show_label=False,
+                        container=False,
+                        elem_classes=["cricli-entry-radio"],
                     )
-                    gr.HTML(
-                        '<p class="cricli-html-snippet">Use these curated cases for a cleaner presentation path.</p>'
-                    )
+                    with gr.Group(visible=True, elem_classes=["cricli-entry-mode-panel"]) as saved_entry_panel:
+                        article = gr.Dropdown(
+                            choices=choices,
+                            value=default_article_choice,
+                            label="Select Article or Headline",
+                            elem_classes=["cricli-field"],
+                        )
+                        filter_text = gr.Textbox(
+                            placeholder="Filter article cards",
+                            show_label=False,
+                            elem_classes=["cricli-field"],
+                        )
+                        stats = gr.HTML(value=sidebar_stats_html(cases))
+                    with gr.Group(visible=False, elem_classes=["cricli-entry-mode-panel"]) as live_entry_panel:
+                        live_url = gr.Textbox(
+                            label="Live Article URL",
+                            placeholder="https://example.com/news/article",
+                            elem_classes=["cricli-field"],
+                        )
+                        gr.HTML(
+                            '<p class="cricli-live-help"><b>Fetch Article</b>: fill the article card. <b>Fetch + Run Review</b>: fill and recommend.</p>'
+                        )
+                        with gr.Column(elem_classes=["cricli-live-actions"]):
+                            live_fetch = gr.Button("Fetch Article", variant="secondary")
+                            live_fetch_review = gr.Button("Fetch + Run Review", variant="primary")
+                        live_use_api = gr.State(api_key_available)
+                        gr.HTML(
+                            (
+                                '<div class="cricli-api-status enabled">OpenAI API enabled</div>'
+                                if api_key_available
+                                else '<div class="cricli-api-status fallback">OpenAI API unavailable; using fallback generation</div>'
+                            )
+                        )
+                        live_status = gr.HTML(value="")
+                current_article = gr.HTML(value=default_sidebar)
                 objective = gr.Dropdown(
                     choices=objective_labels,
                     value=default_objective_label,
                     label="Business Objective",
                     elem_classes=["cricli-field"],
                 )
-                current_article = gr.HTML(value=default_sidebar)
 
             with gr.Column(scale=5, min_width=640, elem_classes=["cricli-html-main"]):
                 main_header = gr.HTML(value=default_header)
@@ -1940,80 +2409,77 @@ def build_app():
                     source_pool = gr.HTML(value=default_sources)
                 with gr.Accordion("Persona Votes", open=False, elem_classes=["cricli-persona-accordion"]):
                     persona_votes = gr.HTML(value=default_personas)
-                with gr.Accordion("Custom Review", open=False, elem_classes=["cricli-persona-accordion"]):
-                    article_url = gr.Textbox(
-                        label="Live Article URL",
-                        placeholder="https://example.com/news/article",
-                        elem_classes=["cricli-field"],
-                    )
-                    with gr.Row():
-                        fetch_url = gr.Button("Fetch Article", variant="secondary")
-                        fetch_and_review = gr.Button("Fetch + Run Review", variant="primary")
-                    url_fetch_status = gr.Markdown()
-                    with gr.Row():
-                        with gr.Column(scale=2):
-                            summary = gr.Textbox(label="Article Summary", lines=7, elem_classes=["cricli-field"])
-                            original_title = gr.Textbox(
-                                label="Existing / Original Title",
-                                lines=1,
-                                elem_classes=["cricli-field"],
-                            )
-                        with gr.Column(scale=1, min_width=300):
-                            category = gr.Textbox(label="Category", value="news", elem_classes=["cricli-field"])
-                            custom_objective = gr.Dropdown(
-                                choices=objective_labels,
-                                value="Editorial",
-                                label="Objective",
-                                elem_classes=["cricli-field"],
-                            )
-                            num_candidates = gr.Slider(
-                                3,
-                                8,
-                                value=6,
-                                step=1,
-                                label="Candidate Count",
-                                elem_classes=["cricli-field"],
-                            )
-                            use_api = gr.Checkbox(label="Use API Generation When OPENAI_API_KEY Is Set", value=False)
-                            run_custom = gr.Button("Run Review", variant="primary")
-                    custom_recommendation = gr.Markdown()
-                    with gr.Row():
-                        custom_scores = gr.HTML(value=table_html(pd.DataFrame()))
-                        with gr.Column():
-                            gr.Markdown('<div class="cricli-gradio-section">Run Metadata</div>')
-                            custom_metadata = gr.JSON(show_label=False)
-                    gr.Markdown('<div class="cricli-gradio-section">Candidate Headlines</div>')
-                    custom_candidates = gr.HTML(value=table_html(pd.DataFrame()))
 
+        entry_mode.change(
+            switch_entry_mode,
+            inputs=[entry_mode],
+            outputs=[saved_entry_panel, live_entry_panel],
+        )
         article.change(
             update_console,
             inputs=[article, objective, scenario],
-            outputs=[current_article, main_header, main_body, source_pool, persona_votes],
+            outputs=[active_mode, current_article, main_header, main_body, source_pool, persona_votes],
         )
         objective.change(
             sync_objective_console,
-            inputs=[article, objective, scenario],
+            inputs=[
+                article,
+                objective,
+                scenario,
+                active_mode,
+                live_summary_state,
+                live_title_state,
+                live_category_state,
+                live_url_state,
+                live_use_api,
+            ],
             outputs=[objective_tabs, current_article, main_header, main_body, source_pool, persona_votes],
         )
         objective_tabs.change(
             sync_objective_console,
-            inputs=[article, objective_tabs, scenario],
+            inputs=[
+                article,
+                objective_tabs,
+                scenario,
+                active_mode,
+                live_summary_state,
+                live_title_state,
+                live_category_state,
+                live_url_state,
+                live_use_api,
+            ],
             outputs=[objective, current_article, main_header, main_body, source_pool, persona_votes],
         )
         filter_text.change(
             apply_filter,
             inputs=[filter_text, article, objective, scenario],
-            outputs=[article, stats, current_article, main_header, main_body, source_pool, persona_votes],
+            outputs=[article, active_mode, stats, current_article, main_header, main_body, source_pool, persona_votes],
         )
-        scenario.change(
-            load_scenario_console,
-            inputs=[scenario],
+        live_fetch.click(
+            fetch_live_article_sidebar,
+            inputs=[live_url, live_category_state],
             outputs=[
-                article,
+                live_summary_state,
+                live_title_state,
+                live_category_state,
+                live_url_state,
+                live_status,
+                active_mode,
+                current_article,
+            ],
+        )
+        live_fetch_review.click(
+            fetch_and_review_live_sidebar,
+            inputs=[live_url, live_category_state, objective, live_use_api],
+            outputs=[
+                live_summary_state,
+                live_title_state,
+                live_category_state,
+                live_url_state,
+                live_status,
+                active_mode,
                 objective,
                 objective_tabs,
-                filter_text,
-                stats,
                 current_article,
                 main_header,
                 main_body,
@@ -2021,31 +2487,6 @@ def build_app():
                 persona_votes,
             ],
         )
-        fetch_url.click(
-            fetch_article_url_ui,
-            inputs=[article_url, summary, original_title, category],
-            outputs=[summary, original_title, category, url_fetch_status],
-        )
-        fetch_and_review.click(
-            fetch_and_review_url_ui,
-            inputs=[article_url, category, custom_objective, num_candidates, use_api],
-            outputs=[
-                summary,
-                original_title,
-                category,
-                url_fetch_status,
-                custom_recommendation,
-                custom_scores,
-                custom_candidates,
-                custom_metadata,
-            ],
-        )
-        run_custom.click(
-            review_custom_summary_ui,
-            inputs=[summary, category, original_title, custom_objective, num_candidates, use_api],
-            outputs=[custom_recommendation, custom_scores, custom_candidates, custom_metadata],
-        )
-
     return app
 
 
