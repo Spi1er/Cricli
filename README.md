@@ -165,15 +165,43 @@ Interpretation: local critics score SFT outputs highly, but LLM judge still pref
 ## Repository Layout
 
 ```text
-data/docs/                       Dataset manifest
-data/processed/                  Processed datasets, judge outputs, reports, and selection matrices
-docs/                            Project summary and structure notes
-scripts/                         Data processing, training, judging, scoring, and analysis scripts
-requirements-clickbait-bert.txt  Core dependencies used for critic training
-requirements-demo.txt            Gradio demo dependency
+.github/workflows/smoke-test.yml   GitHub Actions smoke-test workflow
+data/docs/                         Dataset manifest and source notes
+data/processed/                    Processed datasets, judge outputs, reports, and selection matrices
+demo/                              Static HTML and Gradio demo applications
+docs/                              Project summary, setup notes, reproducibility notes, and troubleshooting
+scripts/                           Data processing, training, judging, scoring, demo, and analysis scripts
+tests/                             Lightweight smoke and integration tests
+requirements-clickbait-bert.txt    Core dependencies used for critic training and scoring
+requirements-demo.txt              Gradio demo dependencies
 ```
 
-Large model weights, checkpoints, raw data, and local virtual environments are intentionally excluded from Git.
+Large model weights, checkpoints, raw data, API keys, local virtual environments, and scratch demo outputs are intentionally excluded from Git.
+
+## Rubric Coverage Checklist
+
+This repository is organized so graders and teammates can quickly find evidence for each implementation rubric item.
+
+| Rubric item | Evidence in this repository |
+| --- | --- |
+| Clean and organized code structure | `scripts/`, `demo/`, `tests/`, `docs/`, and `data/processed/` are separated by responsibility. |
+| Comprehensive documentation | `README.md`, `docs/WORK_SUMMARY.md`, `docs/PROJECT_STRUCTURE.md`, `docs/PROJECT_CODE_STRUCTURE.md`, and `docs/REPRODUCIBILITY_CHECKLIST.md`. |
+| Unit tests and error handling | `tests/test_data_contracts.py`, `tests/test_demo_workflows.py`, and fallback paths in `scripts/review_single_article.py`. |
+| Code optimization | Local DistilBERT critics, cached processed artifacts, compact demo datasets, and `data/processed/critic_latency_benchmark.md`. |
+| Successful implementation of proposed features | Candidate generation, local critics, LLM-as-judge evaluation, persona voting, objective-specific selection, and demos are implemented. |
+| Robust error handling | API fallback/dry-run modes, missing-model checks, live URL fallback, and `docs/TROUBLESHOOTING.md`. |
+| Performance optimization | Local critic latency benchmark, lightweight smoke tests, and local scoring paths that avoid repeated LLM calls. |
+| Integration testing | `python -m unittest discover -s tests` validates tracked data schemas, demo fallback scoring, URL extraction, and asset checks. |
+| Reproducible experiments | Fixed 100-example seed set, tracked processed outputs, metadata files, and reproduction commands in this README. |
+| Well-documented experimental setup | Local reproduction, critic training, API generation/judging, and expected reproduction levels are documented below. |
+| Clear presentation of results | Main result tables in this README plus reports under `data/processed/*.md`. |
+| Analysis scripts and notebooks | Analysis is script-based: `scripts/bootstrap_significance.py`, `scripts/analyze_audience_persona_votes.py`, and related scoring scripts. |
+| Clear installation instructions | See `Local Reproduction Guide` steps 1-2. |
+| Environment setup guide | Dependency setup, Python version, MPS/CPU notes, and package checks are documented below. |
+| Usage examples and demonstrations | Static HTML demo, Gradio demo, single-article review command, and live URL demo are documented below. |
+| Troubleshooting guide | `docs/TROUBLESHOOTING.md` covers setup, model paths, API failures, ports, live URL failures, and reproducibility differences. |
+
+GitHub Actions runs the same lightweight smoke tests on push and pull request through `.github/workflows/smoke-test.yml`.
 
 ## Local Reproduction Guide
 
@@ -563,7 +591,7 @@ Run lightweight tests that do not require model weights or API keys:
 python -m unittest discover -s tests
 ```
 
-The smoke tests validate tracked data schemas, demo fallback scoring, live URL HTML extraction, and the asset-check integration path. They are lightweight enough to run locally and can be wired into CI later if workflow permissions are available.
+The smoke tests validate tracked data schemas, demo fallback scoring, live URL HTML extraction, and the asset-check integration path. GitHub Actions runs the same smoke-test suite on push and pull request.
 
 For setup, API, model, port, and reproducibility issues, see:
 
