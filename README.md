@@ -555,6 +555,22 @@ data/processed/single_article_review_metadata.json
 
 With `--run-name`, it writes suffixed files and avoids overwriting previous reviews. Use `--dry-run` or `--force-fallback` to avoid API calls and generate deterministic fallback candidates.
 
+## Testing And Troubleshooting
+
+Run lightweight tests that do not require model weights or API keys:
+
+```bash
+python -m unittest discover -s tests
+```
+
+The smoke tests validate tracked data schemas, demo fallback scoring, live URL HTML extraction, and the asset-check integration path. They are lightweight enough to run locally and can be wired into CI later if workflow permissions are available.
+
+For setup, API, model, port, and reproducibility issues, see:
+
+```text
+docs/TROUBLESHOOTING.md
+```
+
 ## Project Positioning
 
 Best short description:
